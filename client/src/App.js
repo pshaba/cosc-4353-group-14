@@ -1,7 +1,7 @@
 // src/App.js
 import React, { useEffect, useState }from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import Login from './Login';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Login from './Login';
 // import Registration from './Registration';
 import Profile from './Profile';
 // import EventManagement from './EventManagement';
@@ -12,15 +12,15 @@ import Profile from './Profile';
 function App() {
   const [backendData, setBackendData ] = useState ([{}])
 
-  useEffect(() => {
-    fetch("/api").then(
-      response => response.json()
-    ).then(
-      data => {
-        setBackendData(data)
-      }
-    )
-  }, [])
+  // useEffect(() => {
+  //   fetch("/api").then(
+  //     response => response.json()
+  //   ).then(
+  //     data => {
+  //       setBackendData(data)
+  //     }
+  //   )
+  // }, [])
   return (
     <Router>
       <div>
@@ -35,9 +35,10 @@ function App() {
         )}
 
       </div> */}
-      <Switch>
+      <Routes>
+      <Route path="/" component={Login} />
       <Route path="/profile" component={Profile} />
-      </Switch>
+      </Routes>
         {/* <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Registration} />
