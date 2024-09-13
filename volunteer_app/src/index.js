@@ -2,7 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App'; //your App component
-import './App.css'; //custom CSS
 import { BrowserRouter as Router } from 'react-router-dom'; //Import router
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

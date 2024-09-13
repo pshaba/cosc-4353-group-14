@@ -1,0 +1,31 @@
+/*../Login.css 
+Custom CSS for Login Page
+*/
+
+/*Login Button*/
+#login_btn {
+  background-color: seagreen;
+  border-color: seagreen;
+}
+  
+#login_btn:hover {
+  background-color: white;
+  color: seagreen;
+}
+  
+/*Register Modal Button*/
+#register_modal {
+  color: seagreen; 
+}
+
+/*Regsiter Button*/
+#register_btn {
+  background-color: seagreen;
+  border-color: seagreen;
+}
+  
+#register_btn:hover {
+  background-color: white;
+  color: seagreen;
+ }
+
