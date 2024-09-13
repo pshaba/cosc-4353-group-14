@@ -1,6 +1,7 @@
 // src/components/Login.js
 import React from 'react'; 
 import {useState} from 'react'; 
+import { useNavigate } from 'react-router-dom'; // import useNavigate hook for navigation
 //import {Link}  from 'react-router-dom'; 
 import './Login.css'; //custom CSS for Login page
 
@@ -8,13 +9,33 @@ const Login = () => {
     const [email, setEmail] = useState(''); 
     const [password, setPassword] = useState(''); 
     const [showModal, setShowModal] = useState(false); 
+    const [successMessage, setSuccessMessage] = useState(''); //show account was created successfully after registeration 
+    const navigate = useNavigate(); //initialize the navigate hook
 
-    const handleSubmit = (e) => {
+    const handleLoginSubmit = (e) => {
         e.preventDefault(); 
 
-        //logic to handle login or registration
+        //logic to handle login
         console.log({email, password}); 
     };  
+
+    const handleRegisterSubmit = (e) => {
+        e.preventDefault(); 
+        console.log('Register form submitted'); //debugging statement
+        
+        //logic to handle register 
+        console.log({email, password}); 
+
+        //display success message and redirect back to login page after short delay
+        setSuccessMessage('Account successfully created! You will be redirected to login.'); 
+        console.log('Success message set: ', successMessage); //debugging statement
+
+        setTimeout(() => {
+            setSuccessMessage(''); 
+            setShowModal(false); //close modal
+            navigate('/'); //redirect to login page
+        }, 2000); //adjust delay as needed
+    }; 
 
     //manually call modal-backdrop function as it wasn't working automaticaly
     React.useEffect(() => {
@@ -40,7 +61,7 @@ const Login = () => {
                     <div className="card mt-5">
                         <div className="card-body">
                             <h2 className="card-title text-center">Login</h2>
-                            <form conSubmit={handleSubmit}>
+                            <form conSubmit={handleLoginSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="email">Email</label>
                                     <input
@@ -90,7 +111,6 @@ const Login = () => {
             role="dialog"
             style={{display: showModal ? 'block' : 'none'}} //
             aria-labelledby="registerModalLabel"
-            aria-hidden="true"
             onClick={() => setShowModal(false)} //close modal on outside click
         >
             <div className="modal-dialog" role="document" onClick={(e) => e.stopPropagation()}>
@@ -106,11 +126,11 @@ const Login = () => {
                             onClick={() => setShowModal(false)}
                             aria-label="Close"
                         >
-                            <span aria-hidden="true">&times;</span>
+                            <span>&times;</span>
                         </button>
                     </div>
                     <div className="modal-body">
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleRegisterSubmit}>
                             <div className="form-group">
                                 <label htmlFor="registerEmail">Email</label>
                                 <input
@@ -141,6 +161,11 @@ const Login = () => {
                                 >Register</button>
                             </div>
                         </form>
+                        {successMessage && (
+                            <div className="alert alert-success mt-3" role="alert">
+                                {successMessage}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
