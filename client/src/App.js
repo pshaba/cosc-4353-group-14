@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login';
 // import Registration from './Registration';
 import Profile from './Profile';
-import EventManagement from './eventManagement';
+import EventManagementForm from './eventManagement';
 // import VolunteerMatching from './VolunteerMatching';
 // import Notifications from './Notifications';
 // import VolunteerHistory from './VolunteerHistory';
