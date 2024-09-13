@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login';
 // import Registration from './Registration';
 import Profile from './Profile';
-import EventManagementForm from './eventManagement';
+import EventManagementForm from './EventManagementForm';
+import EventManager from './EventManager';
 // import VolunteerMatching from './VolunteerMatching';
 // import Notifications from './Notifications';
 // import VolunteerHistory from './VolunteerHistory';
@@ -39,6 +40,7 @@ function App() {
       <Route path="/" component={Login} />
       <Route path="/profile" component={Profile} />
       <Route path="/event-management" component={<EventManagementForm />} />
+      
       </Routes>
         {/* <Switch>
           <Route path="/login" component={Login} />
