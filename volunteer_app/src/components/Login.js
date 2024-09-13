@@ -16,6 +16,22 @@ const Login = () => {
         console.log({email, password}); 
     };  
 
+    //manually call modal-backdrop function as it wasn't working automaticaly
+    React.useEffect(() => {
+        if (showModal) {
+            document.body.classList.add('modal-open'); 
+            const backdrop = document.createElement('div'); 
+            backdrop.className = 'modal-backdrop fade show'; 
+            document.body.appendChild(backdrop); 
+
+            return () => {
+                document.body.classList.remove('modal-open'); 
+                document.body.removeChild(backdrop); 
+            }; 
+        }
+    }, [showModal]); 
+
+
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -24,7 +40,7 @@ const Login = () => {
                     <div className="card mt-5">
                         <div className="card-body">
                             <h2 className="card-title text-center">Login</h2>
-                            <form onSubmit={handleSubmit}>
+                            <form conSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="email">Email</label>
                                     <input
@@ -68,11 +84,11 @@ const Login = () => {
   
         {/* Register Modal */}
         <div
-            className="modal show fade"//use "show" class for visible modals
+            className={`modal fade ${showModal ? 'show':''}`}//"modal show fade" -- use "show" class for visible modals
             id="registerModal"
             tabIndex="-1"
             role="dialog"
-            style={{display: showModal ? 'block' : 'none'}} 
+            style={{display: showModal ? 'block' : 'none'}} //
             aria-labelledby="registerModalLabel"
             aria-hidden="true"
             onClick={() => setShowModal(false)} //close modal on outside click

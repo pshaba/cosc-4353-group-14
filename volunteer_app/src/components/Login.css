@@ -27,5 +27,8 @@ Custom CSS for Login Page
 #register_btn:hover {
   background-color: white;
   color: seagreen;
- }
+}
 
+.modal-backdrop {
+  background-color: rgba(0,0,0,0.5);/* Adjust opacity as needed */
+}
