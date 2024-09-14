@@ -7,8 +7,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './Home.css'
 import {loremIpsum} from 'lorem-ipsum'; //used to generate text in home page body
-//import {Navbar} from 'react-bootstrap'; 
-//import {Container} from 'reactstrap'; 
 
 const Home = () => {
 
@@ -40,9 +38,9 @@ const Home = () => {
                             <li className="nav-item">
                                 <Link className="nav-link active" aria-current="page" to="/"> Home </Link>
                             </li>
-                            <li className="nav-item">
+                            {/*<li className="nav-item">
                                 <Link className="nav-link" to="/Profile"> Profile </Link>
-                            </li>
+                            </li>*/}
                             <li className="nav-item">
                                 <Link className="nav-link" to="/EventManagement"> Manage Events </Link>
                             </li>
@@ -55,10 +53,11 @@ const Home = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/Notifications"> Notifications </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="btn btn-outline-success my-2 my-sm-0" to="/Login"> Login </Link>
-                            </li>
                         </ul>
+                        {/* Login button in navbar appears on the right side */}
+                        <div className="d-flex ms-auto">
+                            <Link className="btn btn-outline-success my-2 my-sm-0" to="/Login"> Login </Link>
+                        </div>
                     </div>
                 </div>
             </nav>

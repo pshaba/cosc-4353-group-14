@@ -62,7 +62,7 @@ const Login = () => {
                     <div className="card mt-5">
                         <div className="card-body">
                             <h2 className="card-title text-center">Login</h2>
-                            <form conSubmit={handleLoginSubmit}>
+                            <form onSubmit={handleLoginSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="email">Email</label>
                                     <input
@@ -88,7 +88,7 @@ const Login = () => {
                                 <button
                                     id="login_btn"
                                     type="submit"
-                                    className="btn btn-primary btn-block"
+                                    className="btn btn-primary w-100 mt-3"
                                 >Login</button>
                                 <div className="text-center mt-3">
                                     <button
@@ -158,7 +158,7 @@ const Login = () => {
                                 <button
                                     id="register_btn"
                                     type="submit"
-                                    className="btn btn-primary btn-block"
+                                    className="btn btn-primary w-100 mt-3"
                                 >Register</button>
                             </div>
                         </form>

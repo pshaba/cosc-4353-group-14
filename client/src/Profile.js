@@ -4,6 +4,7 @@ import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Profile.css'; // Import the CSS file
+import 'bootstrap/dist/css/bootstrap.min.css'; //bootstrap CSS
 
 const Profile = () => {
   const [fullName, setFullName] = useState('');
@@ -85,83 +86,120 @@ const Profile = () => {
 
   return (
     <div className="container">
-      <h2>Profile</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Full Name:</label>
-        <input
-          type="text"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          maxLength={50}
-          required
-        />
+      <div className="row justify-content-center">
+        <div className="col-md-8">
+          <div className="card mt-5">
+            <div className="card-body"> 
+              <h2 className="card-title text-center">Profile</h2>
+              <form onSubmit={handleSubmit} className="py-4 px-3">
+                <div className="mb-3">
+                  <label className="form-label">Full Name:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    maxLength={50}
+                    required
+                  />
+                </div>
 
-        <label>Address 1:</label>
-        <input
-          type="text"
-          value={address1}
-          onChange={(e) => setAddress1(e.target.value)}
-          maxLength={100}
-          required
-        />
+                <div className="mb-3">
+                  <label className="form-label">Address 1:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={address1}
+                    onChange={(e) => setAddress1(e.target.value)}
+                    maxLength={100}
+                    required
+                  />
+                </div>
 
-        <label>Address 2:</label>
-        <input
-          type="text"
-          value={address2}
-          onChange={(e) => setAddress2(e.target.value)}
-          maxLength={100}
-        />
+                <div className="mb-3">
+                  <label className="form-label">Address 2:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={address2}
+                    onChange={(e) => setAddress2(e.target.value)}
+                    maxLength={100}
+                  />
+                </div>
 
-        <label>City:</label>
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          maxLength={100}
-          required
-        />
+                <div className="mb-3">
+                  <label className="form-label">City:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    maxLength={100}
+                    required
+                  />
+                </div>
 
-        <label>State:</label>
-        <Select
-          options={stateOptions}
-          onChange={(selectedOption) => setState(selectedOption.value)}
-          required
-        />
+                <div className="mb-3">
+                  <label className="form-label">State:</label>
+                  <Select
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                    options={stateOptions}
+                    onChange={(selectedOption) => setState(selectedOption.value)}
+                    required
+                  />
+                </div>
 
-        <label>Zip Code:</label>
-        <input
-          type="text"
-          value={zipCode}
-          onChange={(e) => setZipCode(e.target.value)}
-          maxLength={9}
-          minLength={5}
-          required
-        />
+                <div className="mb-3">
+                  <label className="form-label">Zip Code:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={zipCode}
+                    onChange={(e) => setZipCode(e.target.value)}
+                    maxLength={9}
+                    minLength={5}
+                    required
+                  />
+                </div>
 
-        <label>Skills:</label>
-        <Select
-          options={skillOptions}
-          isMulti
-          onChange={(selectedOptions) => setSkills(selectedOptions.map(option => option.value))}
-          required
-        />
+                <div className="mb-3">
+                  <label className="form-label">Skills:</label>
+                  <Select
+                    className="react-select-container"
+                    classNamePrefix="react-select"
+                    options={skillOptions}
+                    isMulti
+                    onChange={(selectedOptions) => setSkills(selectedOptions.map(option => option.value))}
+                    required
+                  />
+                </div>
 
-        <label>Preferences:</label>
-        <textarea
-          value={preferences}
-          onChange={(e) => setPreferences(e.target.value)}
-        />
+                <div className="mb-3">
+                  <label className="form-label">Preferences:</label>
+                  <textarea
+                    className="form-control"
+                    value={preferences}
+                    onChange={(e) => setPreferences(e.target.value)}
+                  />
+                </div>
 
-        <label>Availability:</label>
-        <DatePicker
-          selected={availability}
-          onChange={(date) => setAvailability(date)}
-          required
-        />
+                <div className="mb-3">
+                  <label className="form-label">Availability: </label>
+                  <DatePicker
+                    className="form-control"
+                    selected={availability}
+                    onChange={(date) => setAvailability(date)}
+                    required
+                  />
+                </div>
 
-        <button type="submit">Save Profile</button>
-      </form>
+                <button className="btn btn-primary" id="profile_btn" type="submit">Save Profile</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

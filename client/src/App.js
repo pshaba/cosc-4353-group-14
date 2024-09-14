@@ -9,8 +9,8 @@ import Profile from './Profile';
 // import Notifications from './Notifications';
 // import VolunteerHistory from './VolunteerHistory';
 import './App.css'; //Custom CSS if needed
-import 'bootstrap/dist/css/bootstrap.min.css'; //Custom CSS
-import 'bootstrap/dist/js/bootstrap.bundle.min'; // Import Bootstrap JavaScript (includes Popper.js)
+import 'bootstrap/dist/css/bootstrap.min.css' //Custom CSS
+import 'bootstrap/dist/js/bootstrap.bundle.min' // Bootstrap JS for Register Modal 
 
 function App() {
  // const [backendData, setBackendData ] = useState ([{}])
@@ -29,13 +29,13 @@ function App() {
       <div>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Profile" element={<Profile />} />
         {/* 
-        <Route path="/eventManagement" element={<EventManagement />}/>
-        <Route path="/notifications" element={<Notifications />}/>
-        <Route path="/volunteerMatching" element={<VolunteerMatching />}/>
-        <Route path="volunteerHistory" element={<VolunteerHistory/>}/>
+        <Route path="/EventManagement" element={<EventManagement />}/>
+        <Route path="/Notifications" element={<Notifications />}/>
+        <Route path="/VolunteerMatching" element={<VolunteerMatching />}/>
+        <Route path="VolunteerHistory" element={<VolunteerHistory/>}/>
         */}
       </Routes>
     </div>
