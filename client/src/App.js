@@ -28,6 +28,7 @@ function App() {
   return (
     <Router>
       <div>
+        <Home />
       <Routes>
         <Route path="/" component={Login} />
         <Route path="/login" component={Login} />
