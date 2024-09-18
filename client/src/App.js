@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login';
 import Home from './Home';
 import Profile from './Profile';
-// import EventManagement from './EventManagement';
+import EventManagementForm from './EventManagementForm';
+import EventManager from './EventManager';
 // import VolunteerMatching from './VolunteerMatching';
 // import Notifications from './Notifications';
 // import VolunteerHistory from './VolunteerHistory';
@@ -28,15 +29,10 @@ function App() {
     <Router>
       <div>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Profile" element={<Profile />} />
-        {/* 
-        <Route path="/EventManagement" element={<EventManagement />}/>
-        <Route path="/Notifications" element={<Notifications />}/>
-        <Route path="/VolunteerMatching" element={<VolunteerMatching />}/>
-        <Route path="VolunteerHistory" element={<VolunteerHistory/>}/>
-        */}
+        <Route path="/" component={Login} />
+        <Route path="/login" component={Login} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/event-management" component={<EventManagementForm />} />
       </Routes>
     </div>
     </Router>
