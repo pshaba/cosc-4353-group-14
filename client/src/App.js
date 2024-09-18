@@ -1,14 +1,16 @@
 // src/App.js
-import React, { useEffect, useState }from 'react'
+import React/*, { useEffect, useState }*/ from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './Navbar';
 import Login from './Login';
-// import Registration from './Registration';
+import Home from './Home';
 import Profile from './Profile';
 // import EventManagement from './EventManagement';
 // import VolunteerMatching from './VolunteerMatching';
 // import Notifications from './Notifications';
 // import VolunteerHistory from './VolunteerHistory';
+import './App.css'; //Custom CSS if needed
+import 'bootstrap/dist/css/bootstrap.min.css' //Custom CSS
+import 'bootstrap/dist/js/bootstrap.bundle.min' // Bootstrap JS for Register Modal 
 
 function App() {
  // const [backendData, setBackendData ] = useState ([{}])
@@ -23,10 +25,21 @@ function App() {
   //   )
   // }, [])
   return (
-    <div>
-         {/* <Navbar /> */}
-         <Profile />
+    <Router>
+      <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Profile" element={<Profile />} />
+        {/* 
+        <Route path="/EventManagement" element={<EventManagement />}/>
+        <Route path="/Notifications" element={<Notifications />}/>
+        <Route path="/VolunteerMatching" element={<VolunteerMatching />}/>
+        <Route path="VolunteerHistory" element={<VolunteerHistory/>}/>
+        */}
+      </Routes>
     </div>
+    </Router>
  
     // <Router>
     //   <div>
