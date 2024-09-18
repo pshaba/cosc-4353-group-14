@@ -1,76 +1,33 @@
-/* src/components/Login.css */
+/*../Login.css 
+Custom CSS for Login Page
+*/
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
+/*Login Button*/
+#login_btn {
+  background-color: seagreen;
+  border-color: seagreen;
+}
   
-  .container {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 320px;
-  }
+#login_btn:hover {
+  background-color: white;
+  color: seagreen;
+}
   
-  h2 {
-    text-align: center;
-    margin-bottom: 24px;
-    color: #333;
-  }
+/*Register Modal Button*/
+#register_modal {
+  color: seagreen; 
+}
+
+/*Regsiter Button*/
+#register_btn {
+  background-color: seagreen;
+  border-color: seagreen;
+}
   
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  label {
-    margin-bottom: 8px;
-    color: #555;
-    font-size: 14px;
-  }
-  
-  input[type="email"],
-  input[type="password"] {
-    padding: 12px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  input[type="email"]:focus,
-  input[type="password"]:focus {
-    border-color: #007bff;
-    outline: none;
-  }
-  
-  button {
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  button:focus {
-    outline: none;
-  }
-  
-  button:active {
-    background-color: #003f7f;
-  }
-  
+#register_btn:hover {
+  background-color: white;
+  color: seagreen;
+} 
+.modal-backdrop {
+  background-color: rgba(0,0,0,0.5);/* Adjust opacity as needed */
+}

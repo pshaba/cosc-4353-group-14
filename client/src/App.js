@@ -1,17 +1,20 @@
 // src/App.js
-import React, { useEffect, useState }from 'react'
+import React/*, { useEffect, useState }*/ from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login';
-// import Registration from './Registration';
+import Home from './Home';
 import Profile from './Profile';
 import EventManagementForm from './EventManagementForm';
 import EventManager from './EventManager';
 // import VolunteerMatching from './VolunteerMatching';
 // import Notifications from './Notifications';
 // import VolunteerHistory from './VolunteerHistory';
+import './App.css'; //Custom CSS if needed
+import 'bootstrap/dist/css/bootstrap.min.css' //Custom CSS
+import 'bootstrap/dist/js/bootstrap.bundle.min' // Bootstrap JS for Register Modal 
 
 function App() {
-  const [backendData, setBackendData ] = useState ([{}])
+ // const [backendData, setBackendData ] = useState ([{}])
 
   // useEffect(() => {
   //   fetch("/api").then(
@@ -25,34 +28,43 @@ function App() {
   return (
     <Router>
       <div>
-        {/* <div>
-        
-        {(typeof backendData.users === 'undefined') ? (
-          <p>Loading...</p>
-        ):(
-          backendData.users.map((user, i) => (
-            <p key={i}>{user}</p>
-          ))
-        )}
-
-      </div> */}
       <Routes>
-      <Route path="/" component={Login} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/event-management" component={<EventManagementForm />} />
-      
+        <Route path="/" component={Login} />
+        <Route path="/login" component={Login} />
+        <Route path="/profile" component={Profile} />
+        <Route path="/event-management" component={<EventManagementForm />} />
       </Routes>
-        {/* <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Registration} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/event-management" component={EventManagement} />
-          <Route path="/volunteer-matching" component={VolunteerMatching} />
-          <Route path="/notifications" component={Notifications} />
-          <Route path="/volunteer-history" component={VolunteerHistory} />
-        </Switch> */}
-      </div>
+    </div>
     </Router>
+ 
+    // <Router>
+    //   <div>
+    //     {/* <div>
+        
+    //     {(typeof backendData.users === 'undefined') ? (
+    //       <p>Loading...</p>
+    //     ):(
+    //       backendData.users.map((user, i) => (
+    //         <p key={i}>{user}</p>
+    //       ))
+    //     )}
+
+    //   </div> */}
+    //   <Routes>
+    //     <Route path="/" component={Login} />
+    //     <Route path="/profile" component={Profile} />
+    //   </Routes>
+    //     {/* <Switch>
+    //       <Route path="/login" component={Login} />
+    //       <Route path="/register" component={Registration} />
+    //       <Route path="/profile" component={Profile} />
+    //       <Route path="/event-management" component={EventManagement} />
+    //       <Route path="/volunteer-matching" component={VolunteerMatching} />
+    //       <Route path="/notifications" component={Notifications} />
+    //       <Route path="/volunteer-history" component={VolunteerHistory} />
+    //     </Switch> */}
+    //   </div>
+    // </Router>
   );
 }
 
