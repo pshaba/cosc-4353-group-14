@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './Profile.css'; // Import the CSS file
 import 'bootstrap/dist/css/bootstrap.min.css'; //bootstrap CSS
 
+
 const Profile = () => {
   const [fullName, setFullName] = useState('');
   const [address1, setAddress1] = useState('');
@@ -15,7 +16,8 @@ const Profile = () => {
   const [zipCode, setZipCode] = useState('');
   const [skills, setSkills] = useState([]);
   const [preferences, setPreferences] = useState('');
-  const [availability, setAvailability] = useState(null);
+  //const [availability, setAvailability] = useState(null);
+  const [availability, setAvailability] = useState([]); // Update: Array for multiple dates
 
   const skillOptions = [
     { value: 'leadership', label: 'Leadership' },
@@ -77,7 +79,17 @@ const Profile = () => {
     { value: 'WY', label: 'Wyoming' }
 ];
 
-
+// Function to handle adding/removing multiple dates
+const handleDateChange = (date) => {
+  // Check if the date is already selected
+  if (availability.find((d) => d.getTime() === date.getTime())) {
+    // If already selected, remove the date
+    setAvailability(availability.filter((d) => d.getTime() !== date.getTime()));
+  } else {
+    // Otherwise, add the date to availability
+    setAvailability([...availability, date]);
+  }
+};
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle profile submission logic
@@ -188,12 +200,21 @@ const Profile = () => {
                   <label className="form-label">Availability: </label>
                   <DatePicker
                     className="form-control"
-                    selected={availability}
-                    onChange={(date) => setAvailability(date)}
-                    required
+                    selected={null} // Disable single date selection
+                    onChange={handleDateChange} // Update availability on change
+                    highlightDates={availability} // Highlight the selected dates in the picker
+                    placeholderText="Click to select dates"
+                    
                   />
                 </div>
-
+                {/* Display the selected dates */}
+                <div className="selected-dates">
+                  {availability.length > 0 ? (
+                    <p>Selected Dates: {availability.map(date => date.toLocaleDateString()).join(', ')}</p>
+                  ) : (
+                    <p>No dates selected</p>
+                  )}
+                </div>
                 <button className="btn btn-primary" id="profile_btn" type="submit">Save Profile</button>
               </form>
             </div>

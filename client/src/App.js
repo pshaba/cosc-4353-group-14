@@ -6,6 +6,9 @@ import Home from './Home';
 import Profile from './Profile';
 import EventManagementForm from './EventManagementForm';
 import EventManager from './EventManager';
+import VolunteerHistory from './VolunteerHistory';
+import Notifications from './Notifications';
+import VolunteerMatchingForm from './VolunteerMatchingForm';
 // import VolunteerMatching from './VolunteerMatching';
 // import Notifications from './Notifications';
 // import VolunteerHistory from './VolunteerHistory';
@@ -28,12 +31,15 @@ function App() {
   return (
     <Router>
       <div>
-        <Home />
+        
       <Routes>
-        <Route path="/" component={Login} />
-        <Route path="/login" component={Login} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/event-management" component={<EventManagementForm />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/event-management" element={<EventManagementForm />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/volunteer-history" element={<VolunteerHistory />} />
+        <Route path="/volunteer-matching" element={<VolunteerMatchingForm />} />
       </Routes>
     </div>
     </Router>

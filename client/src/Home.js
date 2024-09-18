@@ -42,21 +42,21 @@ const Home = () => {
                                 <Link className="nav-link" to="/Profile"> Profile </Link>
                             </li>*/}
                             <li className="nav-item">
-                                <Link className="nav-link" to="/EventManagement"> Manage Events </Link>
+                                <Link className="nav-link" to="/event-management"> Manage Events </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/VolunteerMatching"> Match Volunteers </Link>
+                                <Link className="nav-link" to="/volunteer-matching"> Match Volunteers </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/VolunteerHistory"> Volunteer History </Link>
+                                <Link className="nav-link" to="/volunteer-history"> Volunteer History </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/Notifications"> Notifications </Link>
+                                <Link className="nav-link" to="/notifications"> Notifications </Link>
                             </li>
                         </ul>
                         {/* Login button in navbar appears on the right side */}
                         <div className="d-flex ms-auto">
-                            <Link className="btn btn-outline-success my-2 my-sm-0" to="/Login"> Login </Link>
+                            <Link className="btn btn-outline-success my-2 my-sm-0" to="/login"> Login </Link>
                         </div>
                     </div>
                 </div>
