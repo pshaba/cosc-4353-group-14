@@ -5,7 +5,7 @@ import Login from './Login';
 import Home from './Home';
 import Profile from './Profile';
 import EventManagementForm from './EventManagementForm';
-import EventManager from './EventManager';
+//import EventManager from './EventManager';
 import VolunteerHistory from './VolunteerHistory';
 import Notifications from './Notifications';
 import VolunteerMatchingForm from './VolunteerMatchingForm';

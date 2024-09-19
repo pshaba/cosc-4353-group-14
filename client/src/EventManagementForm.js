@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./EventManagmentForm.css" // Custom CSS
 
 function EventManagementForm() {
     const [formData, setFormData] = useState({
@@ -39,11 +40,13 @@ function EventManagementForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="eventName">Event Name:</label>
+        <form className="container mt-5" onSubmit={handleSubmit}>
+            <h2 className="mb-4">Event Management</h2>
+            <div clasName="mb=3">
+                <label className="form-label" htmlFor="eventName">Event Name:</label>
                 <input
                     type="text"
+                    className="form-control"
                     id="eventName"
                     name="eventName"
                     required
@@ -52,9 +55,10 @@ function EventManagementForm() {
                     onChange={handleInputChange}
                 />
             </div>
-            <div>
-                <label htmlFor="eventDescription">Event Description:</label>
+            <div className="mb-3">
+                <label className="form-label" htmlFor="eventDescription">Event Description:</label>
                 <textarea
+                    className="form-control"
                     id="eventDescription"
                     name="eventDescription"
                     required
@@ -62,9 +66,10 @@ function EventManagementForm() {
                     onChange={handleInputChange}
                 />
             </div>
-            <div>
-                <label htmlFor="location">Location:</label>
+            <div className="mb-3">
+                <label className="form-label" htmlFor="location">Location:</label>
                 <textarea
+                    className="form-control"
                     id="location"
                     name="location"
                     required
@@ -72,9 +77,10 @@ function EventManagementForm() {
                     onChange={handleInputChange}
                 />
             </div>
-            <div>
-                <label htmlFor="requiredSkills">Required Skills:</label>
+            <div className="mb-3">
+                <label className="form-label" htmlFor="requiredSkills">Required Skills:</label>
                 <select
+                    className="form-select"
                     multiple
                     id="requiredSkills"
                     name="requiredSkills"
@@ -88,9 +94,10 @@ function EventManagementForm() {
                     <option value="skill4">Skill 4</option>
                 </select>
             </div>
-            <div>
-                <label htmlFor="urgency">Urgency:</label>
+            <div className="mb-3">
+                <label className="form-label" htmlFor="urgency">Urgency:</label>
                 <select
+                    className="form-select"
                     id="urgency"
                     name="urgency"
                     required
@@ -103,9 +110,10 @@ function EventManagementForm() {
                     <option value="low">Low</option>
                 </select>
             </div>
-            <div>
-                <label htmlFor="eventDate">Event Date:</label>
+            <div className="mb-3">
+                <label className="form-label" htmlFor="eventDate">Event Date:</label>
                 <input
+                    className="form-control"
                     type="date"
                     id="eventDate"
                     name="eventDate"
@@ -114,7 +122,7 @@ function EventManagementForm() {
                     onChange={handleInputChange}
                 />
             </div>
-            <button type="submit">Submit</button>
+            <button className="btn btn-primary" id="submit_btn" type="submit">Submit</button>
         </form>
     );
 }

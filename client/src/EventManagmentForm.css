@@ -1,0 +1,12 @@
+/* EventManagementForm.css */
+
+#submit_btn {
+    background-color: seagreen;
+    border-color: seagreen;
+  }
+    
+  #submit_btn:hover {
+    background-color: white;
+    color: seagreen;
+  }
+
