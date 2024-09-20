@@ -1,12 +1,12 @@
 import React from 'react';
 
 // Displays a table of all events including their participation status
-function VolunteerHistory({ events }) {
+function VolunteerHistory({ events=[] }) {//defualt to an empty array
     return (
-        <div>
-            <h1>Volunteer Event History</h1>
-            <table>
-                <thead>
+        <div className="container mt-5">
+            <h1 className="mb-4">Volunteer Event History</h1>
+            <table className="table table-striped">
+                <thead id="table_head" className="thead-light">
                     <tr>
                         <th>Event Name</th>
                         <th>Description</th>
@@ -19,17 +19,26 @@ function VolunteerHistory({ events }) {
                 </thead>
                 <tbody>
                     {/* Maps over the events array to create a table row for each event */}
-                    {events.map((event, index) => (
-                        <tr key={index}>
-                            <td>{event.eventName}</td>
-                            <td>{event.eventDescription}</td>
-                            <td>{event.location}</td>
-                            <td>{event.requiredSkills.join(', ')}</td>
-                            <td>{event.urgency}</td>
-                            <td>{event.eventDate}</td>
-                            <td>Attended</td>  {/* Placeholder value for demo purposes */}
-                        </tr>
-                    ))}
+                    {/*FOR DEBUGGING PURPOSES*/}
+                    {events.length === 0 ? (
+                        <try>
+                            <td colspan="7" className="text-center">No events found.</td>
+    
+                        </try>
+                    ) : ( 
+                    
+                        events.map((event, index) => (
+                            <tr key={index}>
+                                <td>{event.eventName}</td>
+                                <td>{event.eventDescription}</td>
+                                <td>{event.location}</td>
+                                <td>{event.requiredSkills.join(', ')}</td>
+                                <td>{event.urgency}</td>
+                                <td>{event.eventDate}</td>
+                                <td>Attended</td>  {/* Placeholder value for demo purposes */}
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
         </div>

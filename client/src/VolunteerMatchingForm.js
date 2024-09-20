@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./VolunteerMatchingForm.css" // Custom CSS
 
 const VolunteerMatchingForm = () => {
   const [volunteers, setVolunteers] = useState([]);
@@ -23,42 +24,44 @@ const VolunteerMatchingForm = () => {
   };
 
   return (
-    <form>
+    <div className="container mt-5">
       <h2>Volunteer-Event Matching</h2>
-      <div>
-        <label htmlFor="volunteerSelect">Select Volunteer:</label>
-        <select
-          id="volunteerSelect"
-          value={selectedVolunteer}
-          onChange={(e) => setSelectedVolunteer(e.target.value)}
-        >
-          <option value="">Choose a volunteer</option>
-          {volunteers.map((volunteer) => (
-            <option key={volunteer.id} value={volunteer.name}>
-              {volunteer.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="eventSelect">Select Event:</label>
-        <select
-          id="eventSelect"
-          value={selectedEvent}
-          onChange={(e) => setSelectedEvent(e.target.value)}
-        >
-          <option value="">Choose an event</option>
-          {events.map((event) => (
-            <option key={event.id} value={event.name}>
-              {event.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <button type="button" onClick={handleMatch}>
-        Match Volunteer to Event
-      </button>
-    </form>
+      <form>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="volunteerSelect">Select Volunteer:</label>
+          <select
+            id="volunteerSelect custom-select"
+            className="form-select"
+            value={selectedVolunteer}
+            onChange={(e) => setSelectedVolunteer(e.target.value)}
+          >
+            <option value="">Choose a volunteer</option>
+            {volunteers.map((volunteer) => (
+              <option key={volunteer.id} value={volunteer.name}>
+                {volunteer.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="eventSelect">Select Event:</label>
+          <select
+            id="eventSelect custom-select"
+            className="form-select"
+            value={selectedEvent}
+            onChange={(e) => setSelectedEvent(e.target.value)}
+          >
+            <option value="">Choose an event</option>
+            {events.map((event) => (
+              <option key={event.id} value={event.name}>
+                {event.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button className="btn btn-primary" id="submit_btn" type="button" onClick={handleMatch}>Select Volunteer</button>
+      </form>
+    </div>
   );
 };
 
