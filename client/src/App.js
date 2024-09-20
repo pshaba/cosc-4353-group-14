@@ -5,13 +5,9 @@ import Login from './Login';
 import Home from './Home';
 import Profile from './Profile';
 import EventManagementForm from './EventManagementForm';
-//import EventManager from './EventManager';
 import VolunteerHistory from './VolunteerHistory';
 import Notifications from './Notifications';
 import VolunteerMatchingForm from './VolunteerMatchingForm';
-// import VolunteerMatching from './VolunteerMatching';
-// import Notifications from './Notifications';
-// import VolunteerHistory from './VolunteerHistory';
 import './App.css'; //Custom CSS if needed
 import 'bootstrap/dist/css/bootstrap.min.css' //Custom CSS
 import 'bootstrap/dist/js/bootstrap.bundle.min' // Bootstrap JS for Register Modal 
@@ -31,17 +27,16 @@ function App() {
   return (
     <Router>
       <div>
-        
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/event-management" element={<EventManagementForm />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/volunteer-history" element={<VolunteerHistory />} />
-        <Route path="/volunteer-matching" element={<VolunteerMatchingForm />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/event-management" element={<EventManagementForm />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/volunteer-history" element={<VolunteerHistory />} />
+          <Route path="/volunteer-matching" element={<VolunteerMatchingForm />} />
+        </Routes>
+      </div>
     </Router>
  
     // <Router>
