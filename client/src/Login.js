@@ -11,31 +11,64 @@ const Login = () => {
     const [password, setPassword] = useState(''); 
     const [showModal, setShowModal] = useState(false); 
     const [successMessage, setSuccessMessage] = useState(''); //show account was created successfully after registeration 
+    const [errorMessage, setErrorMessage] = useState(''); //state for error messages
     const navigate = useNavigate(); //initialize the navigate hook
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = async (e) => {
         e.preventDefault(); 
 
-        //logic to handle login
-        console.log({email, password}); 
+        //connect backend to frontend
+        const response = await fetch('/api/auth/login', {
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify({email, password}), 
+        }); 
+
+        const data = await response.json(); 
+
+        if (response.ok) {
+            localStorage.setItem('token', data.token); //store the token
+            if (data.profileComplete) {
+                navigate('/'); //redirect to Home.js if profile is already set up
+            } else {
+                navigate('/profile'); //redirect to profile if logging in for the first time
+            }
+        } else {
+            setErrorMessage(data.message); //show error message on login failure
+        }
+
+        //logic to handle login -- FRONTEND ONLY
+        //console.log({email, password}); 
     };  
 
-    const handleRegisterSubmit = (e) => {
+    const handleRegisterSubmit = async (e) => {
         e.preventDefault(); 
         console.log('Register form submitted'); //debugging statement
         
         //logic to handle register 
-        console.log({email, password}); 
+        //console.log({email, password}); //FRONTEND ONLY
 
-        //display success message and redirect back to login page after short delay
-        setSuccessMessage('Account successfully created! You will be redirected to login.'); 
-        console.log('Success message set: ', successMessage); //debugging statement
+        const response = await fetch('/api/auth/register', {
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify({email, password}), 
+        }); 
 
-        setTimeout(() => {
-            setSuccessMessage(''); 
-            setShowModal(false); //close modal
-            navigate('/'); //redirect to login page
-        }, 2000); //adjust delay as needed
+        const data = await response.json(); 
+
+        if(response.ok) {
+            //display success message and redirect back to login page after short delay
+            setSuccessMessage('Account successfully created! You will be redirected to login.'); 
+            //console.log('Success message set: ', successMessage); //debugging statement FRONTEND 
+
+            setTimeout(() => {
+                setSuccessMessage(''); 
+                setShowModal(false); //close modal
+                navigate('/'); //redirect to login page
+            }, 2000); //adjust delay as needed
+        } else {
+            setErrorMessage(data.message); //show error message on registration failure
+        }
     }; 
 
     //manually call modal-backdrop function as it wasn't working automaticaly
@@ -72,6 +105,7 @@ const Login = () => {
                                         placeholder="Enter email"
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
+                                        autoComplete="email" 
                                     />
                                 </div>
                                 <div className="form-group">
@@ -83,8 +117,12 @@ const Login = () => {
                                         placeholder="Enter password"
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
+                                        autoComplete="current-password"
                                     />
                                 </div>
+                                {errorMessage && (
+                                    <div className = "alert alert-danger mt-2">{errorMessage}</div>
+                                )}
                                 <button
                                     id="login_btn"
                                     type="submit"
@@ -141,6 +179,7 @@ const Login = () => {
                                     placeholder="Enter email"
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
+                                    autoComplete="email"
                                 />
                             </div>
                             <div className="form-group">
@@ -152,8 +191,12 @@ const Login = () => {
                                     placeholder="Enter password"
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
+                                    autoComplete="new-password"
                                 />
                             </div>
+                            {errorMessage && (
+                                <div className = "alert alert-danger mt-2">{errorMessage}</div>
+                            )}
                             <div className="modal-footer">
                                 <button
                                     id="register_btn"

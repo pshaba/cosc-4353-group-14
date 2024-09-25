@@ -1,8 +1,17 @@
 // npm run dev
 
 const express = require('express')
+const cors = require('cors') 
+const loginAuthRoutes = require('./routes/loginAuthRoutes'); 
 
-const app = express() 
+
+const app = express()  
+
+app.use(cors()); 
+app.use(express.json()); //parse JSON bodies
+
+//Use authentication routes
+app.use('/api/auth', loginAuthRoutes); 
 
 app.get("/", (req, res) => {
     res.send("Server is ready");

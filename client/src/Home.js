@@ -7,9 +7,20 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './Home.css'
 import {loremIpsum} from 'lorem-ipsum'; //used to generate text in home page body
+import {useEffect} from 'react'; 
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate(); 
 
+    useEffect(() => {
+        const token = localStorage.getItem('token'); 
+
+        if(!token) {
+            navigate('/login'); //redirect to login if not authenticated
+        }
+    }, [navigate]); 
+    
     const paragraphs = loremIpsum({
         count: 2, //number of paragraphs 
         units:'paragraphs'
