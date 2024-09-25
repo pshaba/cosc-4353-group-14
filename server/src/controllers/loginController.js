@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
 
     //validate email format 
     if(!isValidEmail(email)) {
-        return req.status(400).json({message: "Invalid email format"}); 
+        return res.status(400).json({message: "Invalid email format. Try again."}); 
     }
 
     //check if user already exists 
@@ -31,7 +31,7 @@ exports.register = async (req, res) => {
     }
 
     //hash the pasword
-    const hashedPassword = await bcrypt.hash(pasword, 10); 
+    const hashedPassword = await bcrypt.hash(password, 10); 
 
     //add user to the in-memory storage
     User.addUser({email, password: hashedPassword}); 
@@ -45,21 +45,21 @@ exports.login = async (req, res) => {
 
     //validate email format
     if(!isValidEmail(email)) {
-        return res.status(400).json({message:"Invalid email format"}); 
+        return res.status(400).json({message:"Invalid email format. Try again."}); 
     }
-    
+
     //find user
     const user = User.findUser(email); 
 
     //check if user exists
     if (!user) {
-        return res.status(401).json({message: "Invalid credentials"}); 
+        return res.status(401).json({message: "Email not correct."}); 
     }
 
     //compare the provided password with the stored password
     const isPasswordMatch = await bcrypt.compare(password, user.password); 
     if (!isPasswordMatch) {
-        return res.status(401).json({message: "Invalid credentials"}); 
+        return res.status(401).json({message: "Password not correct."}); 
     }
 
     //generate a JWT token 
@@ -70,3 +70,5 @@ exports.login = async (req, res) => {
     //respond with token
     res.json({token, profileComplete}); 
 }; 
+
+

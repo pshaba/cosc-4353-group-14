@@ -16,25 +16,28 @@ const Login = () => {
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault(); 
+        console.log('Login form submitted'); 
 
         //connect backend to frontend
-        const response = await fetch('/api/auth/login', {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify({email, password}), 
-        }); 
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify({email, password}), 
+            }); 
 
-        const data = await response.json(); 
-
-        if (response.ok) {
-            localStorage.setItem('token', data.token); //store the token
-            if (data.profileComplete) {
-                navigate('/'); //redirect to Home.js if profile is already set up
-            } else {
-                navigate('/profile'); //redirect to profile if logging in for the first time
+            if (!response.ok) {
+                const errorData = await response.text(); //get response as text
+                throw new Error(errorData); // throw error with response text
             }
-        } else {
-            setErrorMessage(data.message); //show error message on login failure
+
+            const data = await response.json(); 
+
+            localStorage.setItem('token', data.token); 
+            navigate(data.profileComplete ? '/' : '/profile'); 
+        } catch(error) {
+            setErrorMessage(error.message || "An error occurred during login."); //show error message on login failure
+            console.error('Login error:', error); 
         }
 
         //logic to handle login -- FRONTEND ONLY
@@ -44,32 +47,48 @@ const Login = () => {
     const handleRegisterSubmit = async (e) => {
         e.preventDefault(); 
         console.log('Register form submitted'); //debugging statement
-        
+        setErrorMessage(''); //clear previous error message
+
         //logic to handle register 
         //console.log({email, password}); //FRONTEND ONLY
 
-        const response = await fetch('/api/auth/register', {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify({email, password}), 
-        }); 
-
-        const data = await response.json(); 
-
-        if(response.ok) {
-            //display success message and redirect back to login page after short delay
-            setSuccessMessage('Account successfully created! You will be redirected to login.'); 
-            //console.log('Success message set: ', successMessage); //debugging statement FRONTEND 
-
-            setTimeout(() => {
-                setSuccessMessage(''); 
-                setShowModal(false); //close modal
-                navigate('/'); //redirect to login page
-            }, 2000); //adjust delay as needed
-        } else {
-            setErrorMessage(data.message); //show error message on registration failure
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify({email, password}), 
+            }); 
+    
+            const data = await response.json(); 
+    
+            if(response.ok) {
+                //display success message and redirect back to login page after short delay
+                setSuccessMessage('Account successfully created! You will be redirected to login.'); 
+                //console.log('Success message set: ', successMessage); //debugging statement FRONTEND 
+    
+                setTimeout(() => {
+                    setSuccessMessage(''); 
+                    setShowModal(false); //close modal
+                    navigate('/'); //redirect to login page
+                }, 2000); //adjust delay as needed
+            } else {
+                setErrorMessage(data.message); //show error message on registration failure
+            }
+        } catch (error) {
+            setErrorMessage("An error occurred during registration."); 
         }
     }; 
+
+    //clear error message when email input on registration form changes
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value); 
+        setErrorMessage(''); //clear error message when email changes
+    }; 
+
+    const openRegisterModal = () => {
+        setShowModal(true); 
+        setErrorMessage(''); //reset error message when opening modal 
+    }
 
     //manually call modal-backdrop function as it wasn't working automaticaly
     React.useEffect(() => {
@@ -133,7 +152,7 @@ const Login = () => {
                                         type="button"
                                         className="btn btn-link"
                                         id="register_modal"
-                                        onClick={() => setShowModal(true)}
+                                        onClick={openRegisterModal}
                                     >Register</button>
                                 </div>
                             </form>
@@ -177,7 +196,7 @@ const Login = () => {
                                     className="form-control"
                                     id="registerEmail"
                                     placeholder="Enter email"
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={handleEmailChange}
                                     required
                                     autoComplete="email"
                                 />
