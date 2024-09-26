@@ -1,3 +1,4 @@
+
 // server/models/loginUserModel.js
 
 //In-memory storage for demo

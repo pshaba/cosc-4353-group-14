@@ -16,7 +16,7 @@ const Login = () => {
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault(); 
-        console.log('Login form submitted'); 
+        setErrorMessage(''); //clear previous error message 
 
         //connect backend to frontend
         try {
@@ -26,27 +26,31 @@ const Login = () => {
                 body: JSON.stringify({email, password}), 
             }); 
 
+            //checks for HTTP response status codes, handles if there are errors
             if (!response.ok) {
-                const errorData = await response.text(); //get response as text
-                throw new Error(errorData); // throw error with response text
+                const errorData = await response.json(); 
+                throw new Error(errorData.message || "Login failed."); 
             }
 
+            //if response is successful, precess the data
             const data = await response.json(); 
-
             localStorage.setItem('token', data.token); 
-            navigate(data.profileComplete ? '/' : '/profile'); 
+            navigate(data.profileComplete ? '/': '/profile'); 
+
+            //logic to handle login
+            //output to console the submitted email and password
+            console.log("Login form submitted!"); 
+            console.log("Email:", {email}); 
+            console.log("Password: ", {password}); 
         } catch(error) {
+            //handle any errors from fetch or processing
             setErrorMessage(error.message || "An error occurred during login."); //show error message on login failure
             console.error('Login error:', error); 
         }
-
-        //logic to handle login -- FRONTEND ONLY
-        //console.log({email, password}); 
     };  
 
     const handleRegisterSubmit = async (e) => {
         e.preventDefault(); 
-        console.log('Register form submitted'); //debugging statement
         setErrorMessage(''); //clear previous error message
 
         //logic to handle register 
@@ -71,6 +75,12 @@ const Login = () => {
                     setShowModal(false); //close modal
                     navigate('/'); //redirect to login page
                 }, 2000); //adjust delay as needed
+
+                //handle register logic
+                //output to console if regsiter form is successfully submitted
+                console.log('Register form submitted'); //debugging statement
+                console.log("Email:", {email}); 
+                console.log(" Password: ", {password}); 
             } else {
                 setErrorMessage(data.message); //show error message on registration failure
             }
@@ -79,16 +89,22 @@ const Login = () => {
         }
     }; 
 
-    //clear error message when email input on registration form changes
+    //clear error message when email input changes
     const handleEmailChange = (e) => {
         setEmail(e.target.value); 
         setErrorMessage(''); //clear error message when email changes
     }; 
 
+    //clear error messsage when password input changes
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value); 
+        setErrorMessage(''); //clear error message)
+    };
+
     const openRegisterModal = () => {
         setShowModal(true); 
         setErrorMessage(''); //reset error message when opening modal 
-    }
+    };
 
     //manually call modal-backdrop function as it wasn't working automaticaly
     React.useEffect(() => {
@@ -122,7 +138,7 @@ const Login = () => {
                                         className="form-control"
                                         id="email"
                                         placeholder="Enter email"
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        onChange={handleEmailChange}
                                         required
                                         autoComplete="email" 
                                     />
@@ -134,7 +150,7 @@ const Login = () => {
                                         className="form-control"
                                         id="password"
                                         placeholder="Enter password"
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={handlePasswordChange} //{(e) => {setPassword(e.target.value)}}
                                         required
                                         autoComplete="current-password"
                                     />
@@ -208,7 +224,7 @@ const Login = () => {
                                     className="form-control"
                                     id="registerPassword"
                                     placeholder="Enter password"
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={handlePasswordChange} //{(e) => {setPassword(e.target.value)}}
                                     required
                                     autoComplete="new-password"
                                 />
