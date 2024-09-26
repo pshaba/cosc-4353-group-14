@@ -1,5 +1,6 @@
 // src/components/Profile.js
-import React, { useState, /*useNavigate*/ } from 'react';
+import React, { useState} from 'react';
+import {useNavigate} from 'react-router-dom'; //for redirection to Home page
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -17,6 +18,7 @@ const Profile = () => {
   const [preferences, setPreferences] = useState('');
   //const [availability, setAvailability] = useState(null);
   const [availability, setAvailability] = useState([]); // Update: Array for multiple dates
+  const navigate = useNavigate(); //for redirection to home page after profile is submitted
 
   const skillOptions = [
     { value: 'leadership', label: 'Leadership' },
@@ -94,6 +96,9 @@ const Profile = () => {
     e.preventDefault();
     // Handle profile submission logic
     console.log({ fullName, address1, address2, city, state, zipCode, skills, preferences, availability });
+    
+    //after submitting profile, navigate to Home
+    navigate('/Home'); 
   };
 
   return (
