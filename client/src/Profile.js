@@ -1,11 +1,10 @@
 // src/components/Profile.js
-import React, { useState } from 'react';
+import React, { useState, /*useNavigate*/ } from 'react';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Profile.css'; // Import the CSS file
 import 'bootstrap/dist/css/bootstrap.min.css'; //bootstrap CSS
-
 
 const Profile = () => {
   const [fullName, setFullName] = useState('');
@@ -79,17 +78,18 @@ const Profile = () => {
     { value: 'WY', label: 'Wyoming' }
 ];
 
-// Function to handle adding/removing multiple dates
-const handleDateChange = (date) => {
-  // Check if the date is already selected
-  if (availability.find((d) => d.getTime() === date.getTime())) {
-    // If already selected, remove the date
-    setAvailability(availability.filter((d) => d.getTime() !== date.getTime()));
-  } else {
-    // Otherwise, add the date to availability
-    setAvailability([...availability, date]);
-  }
-};
+  // Function to handle adding/removing multiple dates
+  const handleDateChange = (date) => {
+    // Check if the date is already selected
+    if (availability.find((d) => d.getTime() === date.getTime())) {
+      // If already selected, remove the date
+      setAvailability(availability.filter((d) => d.getTime() !== date.getTime()));
+    } else {
+      // Otherwise, add the date to availability
+      setAvailability([...availability, date]);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle profile submission logic

@@ -7,7 +7,9 @@ const users = [];
 
 const User = {
     findUser: (email) => users.find(user => user.email === email), 
+    
     addUser: (user) => {
+        user.profileComplete = false; //set default value of profile complete to false
         users.push(user); 
     }, 
 

@@ -8,7 +8,7 @@ const User = require('../models/loginUserModel');
 //when you generate a JWT, use the SECRET_KEY to create a signature for token
 //when server recieves a JWT, it uses the same key to verify token's authentication 
 //loaded from environment variables
-const SECRET_KEY=process.env.SECRET_KEY; 
+const SECRET_KEY='cosc4353'; //process.env.SECRET_KEY; 
 
 //function to validate email format 
 const isValidEmail = (email) => {

@@ -1,5 +1,5 @@
 // src/App.js
-import React/*, { useEffect, useState }*/ from 'react'
+import React, { /*useEffect, useState */} from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './Login';
 import Home from './Home';
@@ -14,8 +14,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min' // Bootstrap JS for Register Mod
 
 function App() {
  // const [backendData, setBackendData ] = useState ([{}])
-
-  // useEffect(() => {
+    // useEffect(() => {
   //   fetch("/api").then(
   //     response => response.json()
   //   ).then(
@@ -24,6 +23,7 @@ function App() {
   //     }
   //   )
   // }, [])
+
   return (
     <Router>
       <div>

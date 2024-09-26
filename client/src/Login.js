@@ -35,13 +35,12 @@ const Login = () => {
             //if response is successful, precess the data
             const data = await response.json(); 
             localStorage.setItem('token', data.token); 
-            navigate(data.profileComplete ? '/': '/profile'); 
+            navigate(data.profileComplete ? '/home': '/profile'); //redirect based on profile completion
 
             //logic to handle login
             //output to console the submitted email and password
             console.log("Login form submitted!"); 
             console.log("Email:", {email}); 
-            console.log("Password: ", {password}); 
         } catch(error) {
             //handle any errors from fetch or processing
             setErrorMessage(error.message || "An error occurred during login."); //show error message on login failure
@@ -73,14 +72,13 @@ const Login = () => {
                 setTimeout(() => {
                     setSuccessMessage(''); 
                     setShowModal(false); //close modal
-                    navigate('/'); //redirect to login page
+                    navigate('/login'); //redirect to login page
                 }, 2000); //adjust delay as needed
 
                 //handle register logic
                 //output to console if regsiter form is successfully submitted
                 console.log('Register form submitted'); //debugging statement
                 console.log("Email:", {email}); 
-                console.log(" Password: ", {password}); 
             } else {
                 setErrorMessage(data.message); //show error message on registration failure
             }
