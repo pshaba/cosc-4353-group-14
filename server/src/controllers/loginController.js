@@ -1,14 +1,14 @@
 
 // server/controllers/loginController.js
-const bcrypt = require('bcrypt'); 
-const jwt = require('jsonwebtoken'); 
+const bcrypt = require('bcrypt'); //for hashing
+const jwt = require('jsonwebtoken'); //for token 
 const User = require('../models/loginUserModel'); 
 
 //string used for signing and verifiying JSON web tokens
 //when you generate a JWT, use the SECRET_KEY to create a signature for token
 //when server recieves a JWT, it uses the same key to verify token's authentication 
 //loaded from environment variables
-const SECRET_KEY=process.env.SECRET_KEY; 
+//const SECRET_KEY=process.env.SECRET_KEY; 
 
 //function to validate email format 
 const isValidEmail = (email) => {
@@ -70,13 +70,24 @@ exports.login = async (req, res) => {
     }
 
     //generate a JWT token 
-    const token = jwt.sign({email: user.email}, SECRET_KEY, {expiresIn: '1h'}); 
-    
-    //check if user profile is complete to know whether to redirect to Profile or Home page
-    const profileComplete = User.isProfileComplete(email); 
+    try {
+        console.log("Using SECRET_KEY: ", process.env.SECRET_KEY);
+        const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY, { expiresIn: '1h' });
+        
+        //check if user profile is complete to know whether to redirect to Profile or Home page
+        const profileComplete = User.isProfileComplete(email); 
 
-    //respond with token
-    res.json({token, profileComplete}); 
+        //respond with token
+        res.json({token, profileComplete}); 
+    } catch (error) {
+        console.error('Error signing JWT:', error);
+    }
+    
+    // //check if user profile is complete to know whether to redirect to Profile or Home page
+    // const profileComplete = User.isProfileComplete(email); 
+
+    // //respond with token
+    // res.json({token, profileComplete}); 
 }; 
 
 
