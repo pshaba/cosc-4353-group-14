@@ -39,3 +39,9 @@
   background-color: white; 
   color: seagreen; 
 }
+.success{
+  color: green;
+}
+.error{
+  color: red;
+}

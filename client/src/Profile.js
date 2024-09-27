@@ -1,5 +1,6 @@
 // src/components/Profile.js
 import React, { useState } from 'react';
+import axios from 'axios';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -8,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; //bootstrap CSS
 
 
 const Profile = () => {
+  const [msg, setMsg] = useState('');
   const [fullName, setFullName] = useState('');
   const [address1, setAddress1] = useState('');
   const [address2, setAddress2] = useState('');
@@ -90,11 +92,44 @@ const handleDateChange = (date) => {
     setAvailability([...availability, date]);
   }
 };
+
+const axiosPostData = async() => {
+    const postData = {
+      fullName: fullName,
+      address1: address1,
+      address2: address2,
+      city: city,
+      state: state,
+      zipCode: zipCode,
+      skills: skills,
+      preferences: preferences,
+      availability: availability
+    }
+    // await axios.post('http://localhost:5000/profile', postData)
+    // .then(res => setMsg(<p className="success">{res.data}</p>))
+   
+    try {
+      const res = await axios.post('http://localhost:5000/profile', postData);
+      setMsg(<p className="success">{res.data}</p>);
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.error) {
+        // Extract the specific error message from the response
+        setMsg(<p className="error">Error: {error.response.data.error}</p>);
+      } else {
+        // General fallback message in case something else went wrong
+        setMsg(<p className="error">Error: Something went wrong.</p>);
+      }
+    }
+}
+//handle post to backend/server
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle profile submission logic
     console.log({ fullName, address1, address2, city, state, zipCode, skills, preferences, availability });
+    setMsg('');
+    axiosPostData();
   };
+
 
   return (
     <div className="container">
@@ -215,6 +250,9 @@ const handleDateChange = (date) => {
                     <p>No dates selected</p>
                   )}
                 </div>
+
+                {msg}{/* error or success message from server */}
+
                 <button className="btn btn-primary" id="profile_btn" type="submit">Save Profile</button>
               </form>
             </div>
