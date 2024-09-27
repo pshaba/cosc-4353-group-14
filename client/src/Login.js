@@ -2,7 +2,6 @@
 import React from 'react'; 
 import {useState} from 'react'; 
 import { useNavigate } from 'react-router-dom'; // import useNavigate hook for navigation
-//import {Link}  from 'react-router-dom'; 
 import './Login.css'; //custom CSS for Login page
 
 
@@ -115,6 +114,7 @@ const Login = () => {
             return () => {
                 document.body.classList.remove('modal-open'); 
                 document.body.removeChild(backdrop); 
+                setErrorMessage(''); 
             }; 
         }
     }, [showModal]); 
