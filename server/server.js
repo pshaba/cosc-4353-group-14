@@ -4,8 +4,10 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express()
-import profileRouter from './routes/profile-router'
-import homeRouter from './routes/home-router'
+
+// Import routes
+const profileRouter = require('./routes/profile-router');
+const homeRouter = require('./routes/home-router');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
@@ -16,6 +18,8 @@ const corsOptions = {
     optionSuccessStatus: 200
 }
 app.use(cors(corsOptions))
+
+// Use routes
 app.use('/', homeRouter)
 app.use('/profile', profileRouter) 
 

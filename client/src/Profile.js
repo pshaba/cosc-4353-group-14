@@ -105,8 +105,21 @@ const axiosPostData = async() => {
       preferences: preferences,
       availability: availability
     }
-    await axios.post('http://localhost:5000/profile', postData)
-    .then(res => setMsg(<p className="success">{res.data}</p>))
+    // await axios.post('http://localhost:5000/profile', postData)
+    // .then(res => setMsg(<p className="success">{res.data}</p>))
+   
+    try {
+      const res = await axios.post('http://localhost:5000/profile', postData);
+      setMsg(<p className="success">{res.data}</p>);
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.error) {
+        // Extract the specific error message from the response
+        setMsg(<p className="error">Error: {error.response.data.error}</p>);
+      } else {
+        // General fallback message in case something else went wrong
+        setMsg(<p className="error">Error: Something went wrong.</p>);
+      }
+    }
 }
 //handle post to backend/server
   const handleSubmit = (e) => {
@@ -240,7 +253,7 @@ const axiosPostData = async() => {
 
                 {msg}{/* error or success message from server */}
 
-                <button className="btn btn-primary" id="profile_btn" type="submit" onClick={handleSubmit}>Save Profile</button>
+                <button className="btn btn-primary" id="profile_btn" type="submit">Save Profile</button>
               </form>
             </div>
           </div>
