@@ -1,5 +1,5 @@
 TN:
-SF:src\controllers\loginController.js
+SF:src/controllers/loginController.js
 FN:14,(anonymous_0)
 FN:20,(anonymous_1)
 FN:45,(anonymous_2)
@@ -61,7 +61,7 @@ BRF:10
 BRH:8
 end_of_record
 TN:
-SF:src\models\loginUserModel.js
+SF:src/models/loginUserModel.js
 FN:9,(anonymous_0)
 FN:9,(anonymous_1)
 FN:11,(anonymous_2)
@@ -98,7 +98,7 @@ BRF:4
 BRH:2
 end_of_record
 TN:
-SF:src\routes\loginAuthRoutes.js
+SF:src/routes/loginAuthRoutes.js
 FNF:0
 FNH:0
 DA:3,1

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1727473543886" clover="3.2.0">
-  <project timestamp="1727473543887" name="All files">
+<coverage generated="1727475660548" clover="3.2.0">
+  <project timestamp="1727475660548" name="All files">
     <metrics statements="55" coveredstatements="51" conditionals="14" coveredconditionals="10" methods="9" coveredmethods="9" elements="78" coveredelements="70" complexity="0" loc="55" ncloc="55" packages="3" files="3" classes="3"/>
     <package name="controllers">
       <metrics statements="37" coveredstatements="33" conditionals="10" coveredconditionals="8" methods="3" coveredmethods="3"/>
-      <file name="loginController.js" path="C:\Users\jstan\cosc-4353-group-14\server\src\controllers\loginController.js">
+      <file name="loginController.js" path="/Users/jordan/Documents/GitHub/cosc-4353-group-14/server/src/controllers/loginController.js">
         <metrics statements="37" coveredstatements="33" conditionals="10" coveredconditionals="8" methods="3" coveredmethods="3"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -47,7 +47,7 @@
     </package>
     <package name="models">
       <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="2" methods="6" coveredmethods="6"/>
-      <file name="loginUserModel.js" path="C:\Users\jstan\cosc-4353-group-14\server\src\models\loginUserModel.js">
+      <file name="loginUserModel.js" path="/Users/jordan/Documents/GitHub/cosc-4353-group-14/server/src/models/loginUserModel.js">
         <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="2" methods="6" coveredmethods="6"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
@@ -65,7 +65,7 @@
     </package>
     <package name="routes">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="loginAuthRoutes.js" path="C:\Users\jstan\cosc-4353-group-14\server\src\routes\loginAuthRoutes.js">
+      <file name="loginAuthRoutes.js" path="/Users/jordan/Documents/GitHub/cosc-4353-group-14/server/src/routes/loginAuthRoutes.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
