@@ -8,8 +8,10 @@ router.post('/profile', (req, res) => {
     console.log(fullName + ' | ' + skills)
     res.send('Profile Saved and Hello from Server ')
 })
-router.get('/', (req, res) => {
-    res.send("Server is ready and runnig on port 5000");
+
+router.get('/profile', (req, res) => {
+    res.send("Profile Saved and Hello from Server get funct");
 })
+
 
 module.exports = router
