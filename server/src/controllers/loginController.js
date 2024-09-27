@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
     //check if user already exists 
     const existingUser = User.findUser(email); 
     if (existingUser) {
-        console.log("User already exists", email); 
+        console.log("User already exists:", email); 
         return res.status(400).json({message: "User already exists" }); 
     }
 
@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
 
     //validate email format
     if(!isValidEmail(email)) {
-        console.log('Invalid email format', email); 
+        console.log('Invalid email format:', email); 
         return res.status(400).json({message:"Invalid email format. Try again."}); 
     }
 
@@ -58,7 +58,7 @@ exports.login = async (req, res) => {
     const user = User.findUser(email); 
     //check if user exists
     if (!user) {
-        console.log('Email not found', email); 
+        console.log('Email not found:', email); 
         return res.status(401).json({message: "Email not found."}); 
     }
 

@@ -76,7 +76,7 @@ const Login = () => {
 
                 //handle register logic
                 //output to console if regsiter form is successfully submitted
-                console.log('Register form submitted'); //debugging statement
+                console.log('Register form submitted!'); //debugging statement
                 console.log("Email:", {email}); 
             } else {
                 setErrorMessage(data.message); //show error message on registration failure
