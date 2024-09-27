@@ -23,6 +23,10 @@ const User = {
         if (user) {
             user.profileComplete = true; 
         }
+    }, 
+
+    __resetUsers: () => {
+        users.length = 0; // Clear users for testing
     }
 }; 
 
