@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1727470877741" clover="3.2.0">
-  <project timestamp="1727470877741" name="All files">
-    <metrics statements="55" coveredstatements="48" conditionals="14" coveredconditionals="9" methods="9" coveredmethods="8" elements="78" coveredelements="65" complexity="0" loc="55" ncloc="55" packages="3" files="3" classes="3"/>
+<coverage generated="1727472588239" clover="3.2.0">
+  <project timestamp="1727472588239" name="All files">
+    <metrics statements="55" coveredstatements="51" conditionals="14" coveredconditionals="10" methods="9" coveredmethods="9" elements="78" coveredelements="70" complexity="0" loc="55" ncloc="55" packages="3" files="3" classes="3"/>
     <package name="controllers">
       <metrics statements="37" coveredstatements="33" conditionals="10" coveredconditionals="8" methods="3" coveredmethods="3"/>
       <file name="loginController.js" path="C:\Users\jstan\cosc-4353-group-14\server\src\controllers\loginController.js">
@@ -46,20 +46,20 @@
       </file>
     </package>
     <package name="models">
-      <metrics statements="12" coveredstatements="9" conditionals="4" coveredconditionals="1" methods="6" coveredmethods="5"/>
+      <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="2" methods="6" coveredmethods="6"/>
       <file name="loginUserModel.js" path="C:\Users\jstan\cosc-4353-group-14\server\src\models\loginUserModel.js">
-        <metrics statements="12" coveredstatements="9" conditionals="4" coveredconditionals="1" methods="6" coveredmethods="5"/>
+        <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="2" methods="6" coveredmethods="6"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
-        <line num="9" count="7" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="13" count="3" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="29" count="6" type="stmt"/>
+        <line num="9" count="15" type="stmt"/>
+        <line num="12" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="18" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="23" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="29" count="10" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
       </file>
     </package>

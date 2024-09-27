@@ -87,4 +87,66 @@ describe('LoginController', () => {
         expect(response.statusCode).toBe(401);
         expect(response.body.message).toBe('Password not correct.');
     });
+
+        //test for loginUserModal.js
+    test('should add and find a user correctly', async () => {
+        const testUser = {email: 'test@example.com', password: 'password123'}; 
+
+        //add user manually
+        User.addUser(testUser); 
+
+        //check if the user can be found
+        const foundUser = User.findUser('test@example.com'); 
+        expect(foundUser).toBeDefined(); 
+        expect(foundUser.email).toBe('test@example.com'); 
+    }); 
+
+    //test to cover isProfileComplete method
+    test('should correctly determine if profile is complete', async () => {
+        const testUser = {email: 'test@example.com', password: 'password123'};
+
+        User.addUser(testUser); //add user
+
+        //check if profile is initally incomplete
+        const isComplete = User.isProfileComplete('test@example.com'); 
+        expect(isComplete).toBe(false); //should be false initially
+
+        //set profile to complete
+        User.setProfileComplete('test@example.com'); 
+
+        //check again
+        const isNowComplete = User.isProfileComplete('test@example.com'); 
+        expect(isNowComplete).toBe(true); //should now be true
+    }); 
+
+    //test for loginUserModal.js
+    test('should add and find a user correctly', async () => {
+        const testUser = {email: 'test@example.com', password: 'password123'}; 
+
+        //add user manually
+        User.addUser(testUser); 
+
+        //check if the user can be found
+        const foundUser = User.findUser('test@example.com'); 
+        expect(foundUser).toBeDefined(); 
+        expect(foundUser.email).toBe('test@example.com'); 
+    }); 
+
+    //test to cover isProfileComplete method
+    test('should correctly determine if profile is complete', async () => {
+        const testUser = {email: 'test@example.com', password: 'password123'};
+
+        User.addUser(testUser); //add user
+
+        //check if profile is initally incomplete
+        const isComplete = User.isProfileComplete('test@example.com'); 
+        expect(isComplete).toBe(false); //should be false initially
+
+        //set profile to complete
+        User.setProfileComplete('test@example.com'); 
+
+        //check again
+        const isNowComplete = User.isProfileComplete('test@example.com'); 
+        expect(isNowComplete).toBe(true); //should now be true
+    }); 
 });
