@@ -1,5 +1,6 @@
 // src/components/Login.js
-import React, {useState}  from 'react'; 
+import React from 'react'; 
+import {useState} from 'react'; 
 import { useNavigate } from 'react-router-dom'; // import useNavigate hook for navigation
 //import {Link}  from 'react-router-dom'; 
 import './Login.css'; //custom CSS for Login page
