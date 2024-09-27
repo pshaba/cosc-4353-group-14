@@ -8,7 +8,7 @@ const User = require('../models/loginUserModel');
 //when you generate a JWT, use the SECRET_KEY to create a signature for token
 //when server recieves a JWT, it uses the same key to verify token's authentication 
 //loaded from environment variables
-const SECRET_KEY='cosc4353'; //process.env.SECRET_KEY; 
+const SECRET_KEY=process.env.SECRET_KEY; 
 
 //function to validate email format 
 const isValidEmail = (email) => {
@@ -28,6 +28,7 @@ exports.register = async (req, res) => {
     //check if user already exists 
     const existingUser = User.findUser(email); 
     if (existingUser) {
+        console.log("User already exists", email); 
         return res.status(400).json({message: "User already exists" }); 
     }
 
@@ -49,7 +50,7 @@ exports.login = async (req, res) => {
 
     //validate email format
     if(!isValidEmail(email)) {
-        console.long('Invalid email format'); 
+        console.log('Invalid email format', email); 
         return res.status(400).json({message:"Invalid email format. Try again."}); 
     }
 
@@ -57,7 +58,7 @@ exports.login = async (req, res) => {
     const user = User.findUser(email); 
     //check if user exists
     if (!user) {
-        console.log('Email not found'); 
+        console.log('Email not found', email); 
         return res.status(401).json({message: "Email not found."}); 
     }
 

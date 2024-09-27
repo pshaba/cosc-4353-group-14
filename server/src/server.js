@@ -2,7 +2,8 @@
 // npm run dev
 
 require('dotenv').config(); //load environment variablies from .env file for SECRET KEY on loginController.js
-console.log('SECRET_KEY:', process.env.SECRET_KEY); //log to check if it's loaded
+//console.log('SECRET_KEY:', process.env.SECRET_KEY); //log to check if it's loaded
+//console.log('Environment Variables', process.env); //log environment variables if it is being loaded properly 
 
 const express = require('express')
 const cors = require('cors') 
@@ -14,7 +15,7 @@ app.use(cors());
 app.use(express.json()); //parse JSON bodies
 
 //Use authentication routes
-app.use('/api/auth', loginAuthRoutes); 
+app.use('/api/auth/', loginAuthRoutes); 
 
 app.get("/", (req, res) => {
     res.send("Server is ready");
