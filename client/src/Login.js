@@ -1,8 +1,6 @@
-// src/components/Login.js
 import React from 'react'; 
 import {useState} from 'react'; 
 import { useNavigate } from 'react-router-dom'; // import useNavigate hook for navigation
-//import {Link}  from 'react-router-dom'; 
 import './Login.css'; //custom CSS for Login page
 
 
@@ -11,32 +9,98 @@ const Login = () => {
     const [password, setPassword] = useState(''); 
     const [showModal, setShowModal] = useState(false); 
     const [successMessage, setSuccessMessage] = useState(''); //show account was created successfully after registeration 
+    const [errorMessage, setErrorMessage] = useState(''); //state for error messages
     const navigate = useNavigate(); //initialize the navigate hook
 
-    const handleLoginSubmit = (e) => {
+    const handleLoginSubmit = async (e) => {
         e.preventDefault(); 
+        setErrorMessage(''); //clear previous error message 
 
-        //logic to handle login
-        console.log({email, password}); 
+        //connect backend to frontend
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify({email, password}), 
+            }); 
+
+            //checks for HTTP response status codes, handles if there are errors
+            if (!response.ok) {
+                const errorData = await response.json(); 
+                throw new Error(errorData.message || "Login failed."); 
+            }
+
+            //if response is successful, precess the data
+            const data = await response.json(); 
+            localStorage.setItem('token', data.token); 
+            navigate(data.profileComplete ? '/home': '/profile'); //redirect based on profile completion
+
+            //logic to handle login
+            //output to console the submitted email and password
+            console.log("Login form submitted!"); 
+            console.log("Email:", {email}); 
+        } catch(error) {
+            //handle any errors from fetch or processing
+            setErrorMessage(error.message || "An error occurred during login."); //show error message on login failure
+            console.error('Login error:', error); 
+        }
     };  
 
-    const handleRegisterSubmit = (e) => {
+    const handleRegisterSubmit = async (e) => {
         e.preventDefault(); 
-        console.log('Register form submitted'); //debugging statement
-        
+        setErrorMessage(''); //clear previous error message
+
         //logic to handle register 
-        console.log({email, password}); 
+        //console.log({email, password}); //FRONTEND ONLY
 
-        //display success message and redirect back to login page after short delay
-        setSuccessMessage('Account successfully created! You will be redirected to login.'); 
-        console.log('Success message set: ', successMessage); //debugging statement
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify({email, password}), 
+            }); 
+    
+            const data = await response.json(); 
+    
+            if(response.ok) {
+                //display success message and redirect back to login page after short delay
+                setSuccessMessage('Account successfully created! You will be redirected to login.'); 
+                //console.log('Success message set: ', successMessage); //debugging statement FRONTEND 
+    
+                setTimeout(() => {
+                    setSuccessMessage(''); 
+                    setShowModal(false); //close modal
+                    navigate('/login'); //redirect to login page
+                }, 2000); //adjust delay as needed
 
-        setTimeout(() => {
-            setSuccessMessage(''); 
-            setShowModal(false); //close modal
-            navigate('/'); //redirect to login page
-        }, 2000); //adjust delay as needed
+                //handle register logic
+                //output to console if regsiter form is successfully submitted
+                console.log('Register form submitted!'); //debugging statement
+                console.log("Email:", {email}); 
+            } else {
+                setErrorMessage(data.message); //show error message on registration failure
+            }
+        } catch (error) {
+            setErrorMessage("An error occurred during registration."); 
+        }
     }; 
+
+    //clear error message when email input changes
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value); 
+        setErrorMessage(''); //clear error message when email changes
+    }; 
+
+    //clear error messsage when password input changes
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value); 
+        setErrorMessage(''); //clear error message)
+    };
+
+    const openRegisterModal = () => {
+        setShowModal(true); 
+        setErrorMessage(''); //reset error message when opening modal 
+    };
 
     //manually call modal-backdrop function as it wasn't working automaticaly
     React.useEffect(() => {
@@ -49,6 +113,7 @@ const Login = () => {
             return () => {
                 document.body.classList.remove('modal-open'); 
                 document.body.removeChild(backdrop); 
+                setErrorMessage(''); 
             }; 
         }
     }, [showModal]); 
@@ -70,8 +135,9 @@ const Login = () => {
                                         className="form-control"
                                         id="email"
                                         placeholder="Enter email"
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        onChange={handleEmailChange}
                                         required
+                                        autoComplete="email" 
                                     />
                                 </div>
                                 <div className="form-group">
@@ -81,10 +147,14 @@ const Login = () => {
                                         className="form-control"
                                         id="password"
                                         placeholder="Enter password"
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={handlePasswordChange} //{(e) => {setPassword(e.target.value)}}
                                         required
+                                        autoComplete="current-password"
                                     />
                                 </div>
+                                {errorMessage && (
+                                    <div className = "alert alert-danger mt-2">{errorMessage}</div>
+                                )}
                                 <button
                                     id="login_btn"
                                     type="submit"
@@ -95,7 +165,7 @@ const Login = () => {
                                         type="button"
                                         className="btn btn-link"
                                         id="register_modal"
-                                        onClick={() => setShowModal(true)}
+                                        onClick={openRegisterModal}
                                     >Register</button>
                                 </div>
                             </form>
@@ -139,8 +209,9 @@ const Login = () => {
                                     className="form-control"
                                     id="registerEmail"
                                     placeholder="Enter email"
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={handleEmailChange}
                                     required
+                                    autoComplete="email"
                                 />
                             </div>
                             <div className="form-group">
@@ -150,10 +221,14 @@ const Login = () => {
                                     className="form-control"
                                     id="registerPassword"
                                     placeholder="Enter password"
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={handlePasswordChange} //{(e) => {setPassword(e.target.value)}}
                                     required
+                                    autoComplete="new-password"
                                 />
                             </div>
+                            {errorMessage && (
+                                <div className = "alert alert-danger mt-2">{errorMessage}</div>
+                            )}
                             <div className="modal-footer">
                                 <button
                                     id="register_btn"
