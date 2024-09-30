@@ -1,25 +1,35 @@
 // npm run dev
 
 const express = require('express')
-const cors = require('cors');
+const cors = require('cors')
+const bodyParser = require('body-parser')
 const app = express()
 
-app.use(cors());
-app.use(express.json());
-
+// Import routes
+const profileRouter = require('./routes/profile-router');
+const homeRouter = require('./routes/home-router');
 const eventRoutes = require('./routes/events');
 const volunteerHistoryRoutes = require('./routes/volunteerHistory');
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:false}))
+
+
+const corsOptions = {
+    origin: '*',
+    credentials: true,
+    optionSuccessStatus: 200
+}
+app.use(cors(corsOptions))
+
+// Use routes
+app.use('/', homeRouter)
+app.use('/profile', profileRouter) 
 app.use('/api/events', eventRoutes);
 app.use('/api/volunteer-history', volunteerHistoryRoutes);
 
-app.get("/", (req, res) => {
-    res.send("Server is ready");
-})
-
-app.listen(5000, () => {console.log("Server started on port 5000")} )// backend is gonna run on port 5000
+app.listen(5000, () => {
+    console.log("Server started on port 5000")
+} )// backend is gonna run on port 5000
 
 module.exports = app;
-// app.get("/api", (req, res) => {
-//     res.json({"users": ["USerOne", "userTwo", "userThree"]}) //temp users array that will be fetched and displayed on the front end
-// })
