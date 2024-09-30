@@ -111,6 +111,7 @@ const axiosPostData = async() => {
     try {
       const res = await axios.post('http://localhost:5000/profile', postData);
       setMsg(<p className="success">{res.data}</p>);
+      navigate('/Home');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
         // Extract the specific error message from the response
