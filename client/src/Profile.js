@@ -1,5 +1,6 @@
 // src/components/Profile.js
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom'; //for redirection to Home page
 import axios from 'axios';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
