@@ -1,5 +1,6 @@
 // src/components/Profile.js
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom'; //for redirection to Home page
 import axios from 'axios';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
@@ -20,7 +21,7 @@ const Profile = () => {
   const [preferences, setPreferences] = useState('');
   //const [availability, setAvailability] = useState(null);
   const [availability, setAvailability] = useState([]); // Update: Array for multiple dates
-  
+
   const skillOptions = [
     { value: 'leadership', label: 'Leadership' },
     { value: 'organization', label: 'Organization' },
@@ -128,7 +129,7 @@ const axiosPostData = async() => {
     // Handle profile submission logic
     console.log({ fullName, address1, address2, city, state, zipCode, skills, preferences, availability });
     setMsg('');
-    axiosPostData(); 
+    axiosPostData();
   };
 
 
