@@ -28,9 +28,11 @@ function App() {
     <Router>
       <div>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Fixed the routes for /, /login, and /home -- JS */}
+          <Route path="/" element={<Login/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/home" element={<Home/>} />
           <Route path="/event-management" element={<EventManagementForm />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/volunteer-history" element={<VolunteerHistory />} />
