@@ -22,6 +22,8 @@ const Profile = () => {
   //const [availability, setAvailability] = useState(null);
   const [availability, setAvailability] = useState([]); // Update: Array for multiple dates
 
+  const navigate = useNavigate(); // Moved useNavigate to the top level
+
   const skillOptions = [
     { value: 'leadership', label: 'Leadership' },
     { value: 'organization', label: 'Organization' },
@@ -94,7 +96,7 @@ const handleDateChange = (date) => {
   }
 };
 
-const axiosPostData = async() => {
+const axiosPostData = async(navigate) => { // Pass navigate as an argument
     const postData = {
       fullName: fullName,
       address1: address1,
@@ -110,9 +112,9 @@ const axiosPostData = async() => {
     // .then(res => setMsg(<p className="success">{res.data}</p>))
    
     try {
-      const res = await axios.post('http://localhost:5000/profile', postData);
+      const res = await axios.post('/profile', postData);
       setMsg(<p className="success">{res.data}</p>);
-      navigate('/Home');
+      navigate('/home'); 
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
         // Extract the specific error message from the response
@@ -122,6 +124,7 @@ const axiosPostData = async() => {
         setMsg(<p className="error">Error: Something went wrong.</p>);
       }
     }
+    
 }
 //handle post to backend/server
   const handleSubmit = (e) => {
@@ -129,7 +132,7 @@ const axiosPostData = async() => {
     // Handle profile submission logic
     console.log({ fullName, address1, address2, city, state, zipCode, skills, preferences, availability });
     setMsg('');
-    axiosPostData();
+    axiosPostData(navigate); // Pass navigate to axiosPostData
   };
 
 
