@@ -28,15 +28,15 @@ function App() {
     <Router>
       <div>
         <Routes>
-          {/* Fixed the routes for /, /login, and /home -- JS */}
-          <Route path="/" element={<Login/>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/event-management" element={<EventManagementForm />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/volunteer-history" element={<VolunteerHistory />} />
-          <Route path="/volunteer-matching" element={<VolunteerMatchingForm />} />
+            {/* Fixed the routes for /, /login, and /home -- JS */}
+            <Route path="/" element={<Login/>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/home" element={<Home/>} />
+            <Route path="/event-management" element={<EventManagementForm />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/volunteer-history" element={<VolunteerHistory />} />
+            <Route path="/volunteer-matching" element={<VolunteerMatchingForm />} />
         </Routes>
       </div>
     </Router>
@@ -73,6 +73,3 @@ function App() {
 }
 
 export default App;
-
-
-
