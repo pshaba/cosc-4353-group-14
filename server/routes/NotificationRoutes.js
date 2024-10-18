@@ -1,14 +1,13 @@
-// routes/NotificationRoutes.js
 const express = require('express');
 const {
     sendAssignmentNotification,
     sendUpdateNotification,
     sendReminderNotification
-} = require('../controllers/NotificationController');  // This should be correct
+} = require('../controllers/NotificationController');
 
 const router = express.Router();
 
-// Define routes for sending notifications
+// Define routes
 router.post('/sendAssignment', sendAssignmentNotification);
 router.post('/sendUpdate', sendUpdateNotification);
 router.post('/sendReminder', sendReminderNotification);

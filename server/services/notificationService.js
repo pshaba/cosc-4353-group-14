@@ -1,35 +1,27 @@
-// server/services/notificationService.js
-
-class MockNotificationService {
-    sendAssignmentNotification(volunteer, event) {
-        console.log(`Sending assignment notification to ${volunteer.name} for event ${event.name}`);
-    }
-
-    sendUpdateNotification(volunteer, event, updates) {
-        console.log(`Sending update notification to ${volunteer.name} for event ${event.name}: ${JSON.stringify(updates)}`);
-    }
-
-    sendReminderNotification(volunteer, event) {
-        console.log(`Sending reminder notification to ${volunteer.name} for event ${event.name}`);
-    }
-}
-
+// services/notificationService.js
 class NotificationSystem {
     constructor(service) {
         this.service = service;
     }
 
     sendAssignmentNotification(volunteer, event) {
-        this.service.sendAssignmentNotification(volunteer, event);
+        return this.service.send(`Assigned ${volunteer.name} to ${event.name}`);
     }
 
     sendUpdateNotification(volunteer, event, updates) {
-        this.service.sendUpdateNotification(volunteer, event, updates);
+        return this.service.send(`Update for ${volunteer.name} on ${event.name}: ${JSON.stringify(updates)}`);
     }
 
     sendReminderNotification(volunteer, event) {
-        this.service.sendReminderNotification(volunteer, event);
+        return this.service.send(`Reminder: ${volunteer.name}, don't forget ${event.name}`);
     }
 }
 
-module.exports = { MockNotificationService, NotificationSystem };
+class MockNotificationService {
+    send(message) {
+        console.log(`Mock notification sent: ${message}`);
+        return true;
+    }
+}
+
+module.exports = { NotificationSystem, MockNotificationService };
