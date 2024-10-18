@@ -5,6 +5,7 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const volunteerMatchingRoutes = require('./routes/volunteerMatchingRoutes');
 
 const app = express();
+const PORT = process.env.PORT || 5000; // Make port configurable
 
 // Middleware to parse JSON
 app.use(express.json());
@@ -23,7 +24,18 @@ app.get("/api", (req, res) => {
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/matching', volunteerMatchingRoutes);
 
-// Start server on port 5000
-app.listen(5000, () => {
-    console.log("Server started on port 5000");
+// 404 Error handler for unknown routes
+app.use((req, res, next) => {
+    res.status(404).json({ message: "Route not found" });
+});
+
+// Global Error Handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: "Internal Server Error" });
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });

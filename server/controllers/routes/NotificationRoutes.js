@@ -1,11 +1,10 @@
-// routes/notificationRoutes.js
-
+// routes/NotificationRoutes.js
 const express = require('express');
 const {
     sendAssignmentNotification,
     sendUpdateNotification,
     sendReminderNotification
-} = require('../controllers/NotificationController');
+} = require('../controllers/NotificationController');  // This should be correct
 
 const router = express.Router();
 
