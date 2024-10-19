@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for controllers/NotificationController.js</title>
+    <title>Code coverage report for services/volunteerMatcher.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">controllers</a> NotificationController.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">services</a> volunteerMatcher.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.81% </span>
+                <span class="strong">11.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/11</span>
+                <span class='fraction'>1/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.66% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.81% </span>
+                <span class="strong">11.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/11</span>
+                <span class='fraction'>1/9</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -80,40 +80,58 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
-<a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">exports.sendAssignmentNotification = (req, res) =&gt; {
-    const { volunteer, event } = req.body;
-    if (!volunteer || !event) {
-        return res.status(500).json({ message: 'Failed to send notification' });
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// services/volunteerMatcher.js
+class VolunteerMatcher {
+<span class="fstat-no" title="function not covered" >    co</span>nstructor(volunteers, events) {
+<span class="cstat-no" title="statement not covered" >        this.volunteers = volunteers;</span>
+<span class="cstat-no" title="statement not covered" >        this.events = events;</span>
     }
-    return res.status(200).json({ message: `Assignment notification sent to ${volunteer} for ${event}` });
-};
 &nbsp;
-exports.sendUpdateNotification = (req, res) =&gt; {
-    const { volunteer, event } = req.body;
-    return res.status(200).json({ message: 'Update notification sent' });
-};
+<span class="fstat-no" title="function not covered" >    ma</span>tchVolunteers() {
+        const matches = <span class="cstat-no" title="statement not covered" >[];</span>
 &nbsp;
-exports.sendReminderNotification = <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-    const { volunteer, event } = <span class="cstat-no" title="statement not covered" >req.body;</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(200).json({ message: 'Reminder notification sent' });</span>
-};
+<span class="cstat-no" title="statement not covered" >        this.volunteers.forEach(<span class="fstat-no" title="function not covered" >vo</span>lunteer =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            this.events.forEach(<span class="fstat-no" title="function not covered" >ev</span>ent =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                if (volunteer.skills.includes(event.requiredSkills[0])) {</span>
+<span class="cstat-no" title="statement not covered" >                    matches.push({ volunteer: volunteer.name, event: event.name });</span>
+                }
+            });
+        });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return matches;</span>
+    }
+}
+&nbsp;
+module.exports = VolunteerMatcher;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -121,7 +139,7 @@ exports.sendReminderNotification = <span class="fstat-no" title="function not co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-19T00:26:15.933Z
+                at 2024-10-18T23:39:23.694Z
             </div>
         <script src="../prettify.js"></script>
         <script>

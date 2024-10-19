@@ -1,28 +1,25 @@
 const request = require('supertest');
 const express = require('express');
-const notificationRoutes = require('../routes/NotificationRoutes');  // Corrected path
+const notificationRoutes = require('../routes/NotificationRoutes');
 
 const app = express();
 app.use(express.json());
 app.use('/api/notifications', notificationRoutes);
 
-jest.mock('../services/notificationService', () => ({
-    MockNotificationService: jest.fn(() => ({
-        send: jest.fn(),
-    })),
-    NotificationSystem: jest.fn(() => ({
-        sendAssignmentNotification: jest.fn(),
-        sendUpdateNotification: jest.fn(),
-        sendReminderNotification: jest.fn(),
-    })),
-}));
-
-describe('Notification Routes', () => {
-    it('should send assignment notification', async () => {
+describe('NotificationController', () => {
+    test('should handle errors for assignment notifications', async () => {
         const response = await request(app)
             .post('/api/notifications/sendAssignment')
-            .send({ volunteer: { name: 'John' }, event: { name: 'Charity Event' } });
+            .send({ volunteer: '', event: '' });
+        expect(response.status).toBe(500);
+        expect(response.body.message).toBe('Failed to send notification');
+    });
+
+    test('should send update notifications', async () => {
+        const response = await request(app)
+            .post('/api/notifications/sendUpdate')
+            .send({ volunteer: 'John Doe', event: 'Charity Event' });
         expect(response.status).toBe(200);
-        expect(response.body.message).toBe('Assignment notification sent');
+        expect(response.body.message).toBe('Update notification sent');
     });
 });

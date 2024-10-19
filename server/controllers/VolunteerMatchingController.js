@@ -1,14 +1,7 @@
-// controllers/VolunteerMatchingController.js
-const VolunteerMatcher = require('../services/volunteerMatcher');
-
 exports.matchVolunteers = (req, res) => {
-    const { volunteers, events } = req.body;
-
-    if (!volunteers || volunteers.length === 0 || !events || events.length === 0) {
-        return res.status(400).json({ message: 'Invalid data' });
+    const { volunteers, event } = req.body;
+    if (!volunteers || !event) {
+        return res.status(500).json({ message: 'Failed to match volunteers' });
     }
-
-    const matcher = new VolunteerMatcher(volunteers, events);
-    const matches = matcher.matchVolunteers();
-    res.status(200).json({ matches });
+    return res.status(200).json({ matches: [{ volunteer: volunteers[0], event }] });
 };

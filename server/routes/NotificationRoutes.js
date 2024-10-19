@@ -1,13 +1,12 @@
 const express = require('express');
+const router = express.Router();
 const {
     sendAssignmentNotification,
     sendUpdateNotification,
     sendReminderNotification
 } = require('../controllers/NotificationController');
 
-const router = express.Router();
-
-// Define routes
+// Define the POST routes for notifications
 router.post('/sendAssignment', sendAssignmentNotification);
 router.post('/sendUpdate', sendUpdateNotification);
 router.post('/sendReminder', sendReminderNotification);
