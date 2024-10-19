@@ -1,11 +1,11 @@
-// routes/volunteerMatchingRoutes.js
+// VolunteerMatchingRoutes.js
 
+// routes/VolunteerMatchingRoutes.js
 const express = require('express');
 const { matchVolunteers } = require('../controllers/VolunteerMatchingController');
-
 const router = express.Router();
 
-// Define the route for matching volunteers to events
-router.post('/matchVolunteers', matchVolunteers);
+// Routes
+router.post('/match', matchVolunteers);
 
 module.exports = router;
