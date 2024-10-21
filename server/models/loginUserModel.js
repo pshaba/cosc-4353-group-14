@@ -2,18 +2,9 @@
 
 //In-memory storage for demo
 //will adjust once database is set up
-//const users = []; //removed now that database has been implementeed
+//const users = []; //removed now that database has been implementeed//Database Implemented 
 
-const mysql = require('mysql2/promise'); 
 require('dotenv').config(); //load environment variables
-
-//Database Implemented 
-const pool = mysql.createPool({
-    host: process.env.DB_HOST, 
-    user: process.env.DB_USER, 
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-}); 
 
 const User = {
     findUser: async (email) => { //made async when database implemented
