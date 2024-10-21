@@ -1,4 +1,7 @@
 // npm run dev
+// start MySQL server: sudo /usr/local/mysql/support-files/mysql.server start
+// log in to MySQL: mysql -u root -p
+
 require('dotenv').config(); //load environment variables for SECRET_KEY in loginController.js
 //debug .env variable loading SECRET_KEY
 console.log('SECRET_KEY:', process.env.SECRET_KEY);
@@ -26,6 +29,16 @@ const pool = mysql.createPool({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
 }); 
+
+// Example route to test the connection to loginDatabase
+app.get('/test', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT * FROM users');
+        res.json(rows);
+    } catch (error) {
+        res.status(500).json({ error: 'Database query failed' });
+    }
+});
 
 const corsOptions = {
     origin: '*',
