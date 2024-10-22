@@ -6,7 +6,6 @@ require('dotenv').config(); //load environment variables for SECRET_KEY in login
 //debug .env variable loading SECRET_KEY
 console.log('SECRET_KEY:', process.env.SECRET_KEY);
 
-const mysql = require('mysql2/promise'); 
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
@@ -21,24 +20,6 @@ const loginAuthRoutes = require('./routes/loginAuthRoutes');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
-
-//create a MySQL connection pool
-const pool = mysql.createPool({
-    host: process.env.DB_HOST, 
-    user: process.env.DB_USER, 
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-}); 
-
-// Example route to test the connection to loginDatabase
-app.get('/test', async (req, res) => {
-    try {
-        const [rows] = await pool.query('SELECT * FROM users');
-        res.json(rows);
-    } catch (error) {
-        res.status(500).json({ error: 'Database query failed' });
-    }
-});
 
 const corsOptions = {
     origin: '*',

@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
     }
 
     //check if user already exists 
-    const existingUser = User.findUser(email); 
+    const existingUser = await User.findUser(email); 
     if (existingUser) {
         console.log("User already exists:", email); 
         return res.status(400).json({message: "User already exists" }); 
@@ -35,7 +35,7 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10); 
 
     //add user to the in-memory storage
-    User.addUser({email, password: hashedPassword}); 
+    await User.addUser({email, password: hashedPassword}); 
 
     res.status(201).json({message: 'User registered successfully'}); 
 }; 
@@ -54,9 +54,9 @@ exports.login = async (req, res) => {
     }
 
     //find user
-    const user = User.findUser(email); 
+    const existingUser = await User.findUser(email); 
     //check if user exists
-    if (!user) {
+    if (!existingUser) {
         console.log('Email not found:', email); 
         return res.status(401).json({message: "Email not found."}); 
     }
@@ -70,7 +70,7 @@ exports.login = async (req, res) => {
 
     //generate a JWT token 
     try {
-        console.log("Using SECRET_KEY: ", process.env.SECRET_KEY);
+        //console.log("Using SECRET_KEY: ", process.env.SECRET_KEY);
         const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY, { expiresIn: '1h' });
         
         //check if user profile is complete to know whether to redirect to Profile or Home page
@@ -81,10 +81,4 @@ exports.login = async (req, res) => {
     } catch (error) {
         console.error('Error signing JWT:', error);
     }
-    
-    // //check if user profile is complete to know whether to redirect to Profile or Home page
-    // const profileComplete = User.isProfileComplete(email); 
-
-    // //respond with token
-    // res.json({token, profileComplete}); 
 }; 
