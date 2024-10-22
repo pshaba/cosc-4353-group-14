@@ -2,7 +2,8 @@ import React from 'react';
 import {useState} from 'react'; 
 import { useNavigate } from 'react-router-dom'; // import useNavigate hook for navigation
 import './Login.css'; //custom CSS for Login page
-
+//import { isProfileComplete } from '../../server/models/loginUserModel';
+//const isProfileComplete = require('../../server/models/loginUserModel')
 
 const Login = () => {
     const [email, setEmail] = useState(''); 
@@ -30,8 +31,9 @@ const Login = () => {
                 throw new Error(errorData.message || "Login failed."); 
             }
 
-            //if response is successful, precess the data
+            //if response is successful, process the data
             const data = await response.json(); 
+            console.log("Login data: ", data); 
             localStorage.setItem('token', data.token); 
             navigate(data.profileComplete ? '/home': '/profile'); //redirect based on profile completion
 

@@ -37,7 +37,13 @@ const User = {
 
     isProfileComplete: async (email) => { //made async when database implemented
         const user = await User.findUser(email); //added await when database implemnted, everything else stayed same
-        return user ? user.profileComplete : false;
+        if (!user) {
+            return false; 
+        }
+
+        console.log("Is profile complete? ", user.profileComplete); // 0 for not; 1 for true
+        return user.profileComplete === 1; 
+        //return user.profileComplete ? user : 0;
     }, 
 
     setProfileComplete: async (email) => { //made async when database implemented
@@ -46,7 +52,7 @@ const User = {
             user.profileComplete = true; 
         }*/
 
-        await db.query('UPDATE usersCredentials SET profileComplete = ? WHERE email = ?', [true, email]); 
+        await db.query('UPDATE usersCredentials SET profileComplete = ? WHERE email = ?', [1, email]); 
     }, 
 
     __resetUsers: async () => { //made async when database implemented

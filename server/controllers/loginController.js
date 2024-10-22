@@ -49,41 +49,50 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     const {email, password} = req.body; 
 
-    //log login attempt for debugging
-    console.log('Login attempt:', {email, password}); 
-
-    //validate email format
-    if(!isValidEmail(email)) {
-        console.log('Invalid email format:', email); 
-        return res.status(400).json({message:"Invalid email format. Try again."}); 
-    }
-
-    //find user
-    const existingUser = await User.findUser(email); 
-    //check if user exists
-    if (!existingUser) {
-        console.log('Email not found:', email); 
-        return res.status(401).json({message: "Email not found."}); 
-    }
-
-    //compare the provided password with the stored password
-    const isPasswordMatch = await bcrypt.compare(password, user.password); 
-    if (!isPasswordMatch) {
-        console.log('Password does not match'); 
-        return res.status(401).json({message: "Password not correct."}); 
-    }
-
-    //generate a JWT token 
     try {
-        //console.log("Using SECRET_KEY: ", process.env.SECRET_KEY);
-        const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY, { expiresIn: '1h' });
-        
-        //check if user profile is complete to know whether to redirect to Profile or Home page
-        const profileComplete = User.isProfileComplete(email); 
+        //log login attempt for debugging
+        console.log('Login attempt:', {email, password}); 
 
-        //respond with token
-        res.json({token, profileComplete}); 
+        //validate email format
+        if(!isValidEmail(email)) {
+            console.log('Invalid email format:', email); 
+            return res.status(400).json({message:"Invalid email format. Try again."}); 
+        }
+
+        //find user
+        const existingUser = await User.findUser(email); 
+        //console.log(existingUser); 
+        //check if user exists
+        if (!existingUser) {
+            console.log('Email not found:', email); 
+            return res.status(401).json({message: "Email not found."}); 
+        }
+
+        //compare the provided password with the stored password
+        //const isPasswordMatch = await bcrypt.compare(password, user.password); 
+        //console.log("This is the stored password: ", existingUser.password); 
+        const isPasswordMatch = await bcrypt.compare(password, existingUser.password); 
+        if (!isPasswordMatch) {
+            console.log('Password does not match'); 
+            return res.status(401).json({message: "Password not correct."}); 
+        }
+
+        //generate a JWT token 
+        try {
+            //console.log("Using SECRET_KEY: ", process.env.SECRET_KEY);
+            const token = jwt.sign({ email: existingUser.email }, process.env.SECRET_KEY, { expiresIn: '1h' });
+            
+            //check if user profile is complete to know whether to redirect to Profile or Home page
+            const profileComplete = existingUser.profileComplete; //User.isProfileComplete(email); 
+
+            //respond with token
+            res.json({token, profileComplete}); 
+        } catch (error) {
+            console.error('Error signing JWT:', error);
+        }
+
     } catch (error) {
-        console.error('Error signing JWT:', error);
+        console.error('Error during login:', error);
+        res.status(500).json({ message: 'Internal server error.' });
     }
 }; 
