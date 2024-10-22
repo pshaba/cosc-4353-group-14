@@ -1,4 +1,4 @@
-
+const db = require("../database"); // Use require instead of import
 
 // List of valid US state codes
 const validStates = [
@@ -63,18 +63,43 @@ const validStates = [
     if (!isValidDateArray(availability)) {
       return res.status(400).json({ error: 'Availability must be an array of valid dates.' });
     }
-  
-    // If all validations pass, simulate saving the profile
-    console.log('Profile Data Received:', req.body);
+
+  // Insert into UserProfile table
+  try {
     
-    // Send success message
-  //  return res.json({ message: 'Profile saved successfully!' });
-    // res.json({ message: 'Profile Saved successfully!' });
-    res.send('Profile Saved and Hello from Server ')
+    console.log('Profile Data Received:', req.body);
+
+    const query = `
+      INSERT INTO UserProfile (full_name, address,address2, city, state, zipcode, skills, preferences, availability)
+      VALUES (?)
+    `;
+    
+    const availability_ = JSON.stringify(req.body.availability);  // Convert array to JSON string
+    const skills_ = JSON.stringify(req.body.skills);  // Convert array to JSON string
+
+    const values = [
+      req.body.fullName,
+      req.body.address1,
+      req.body.address2,
+      req.body.city,
+      req.body.state,
+      req.body.zipCode,
+      skills_,
+      req.body.preferences,
+      availability_
+    ]
+
+    db.query(query, [values], (err, data) => { //send the data to the DB
+       res.json(data);
+    });
+  } catch (err) {
+    console.error('Error saving profile:', err);
+    res.status(500).json({ error: 'An error occurred while saving the profile.' });
+  }
   };
   
   const getProfile = (req, res) => {
-    // You would return the profile data here from your database
+    // return the profile data here from the database
     res.status(200).json({ message: 'Profile GET request successful' });
   };
   
