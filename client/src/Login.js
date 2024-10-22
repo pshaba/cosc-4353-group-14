@@ -61,7 +61,7 @@ const Login = () => {
             }); 
     
             const data = await response.json(); 
-    
+            console.log("Response from registration: ", data); 
             if(response.ok) {
                 //display success message and redirect back to login page after short delay
                 setSuccessMessage('Account successfully created! You will be redirected to login.'); 
@@ -82,6 +82,7 @@ const Login = () => {
             }
         } catch (error) {
             setErrorMessage("An error occurred during registration."); 
+            console.error("Registration error: ", error); 
         }
     }; 
 
