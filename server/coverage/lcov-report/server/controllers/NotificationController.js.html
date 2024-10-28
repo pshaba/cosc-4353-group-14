@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.84% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/19</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.84% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/19</span>
+                <span class='fraction'>16/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,17 +85,17 @@
 <a name='L20'></a><a href='#L20'>20</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -103,18 +103,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//NotificationController.js
 &nbsp;
-exports.sendAssignmentNotification = <span class="fstat-no" title="function not covered" >(req, res) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const { volunteer, event } = req.body;</span>
-<span class="cstat-no" title="statement not covered" >    if (!volunteer || !event) {</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(500).json({ message: 'Failed to send notification' });</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(200).json({ message: `Assignment notification sent to ${volunteer} for ${event}` });</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+exports.sendAssignmentNotification = (req, res) =&gt; {
+    const { volunteer, event } = req.body;
+    if (!volunteer || !event) {
+        return res.status(500).json({ message: 'Failed to send notification' });
+    }
+    return res.status(200).json({ message: `Assignment notification sent to ${volunteer} for ${event}` });
+};
 &nbsp;
-exports.sendUpdateNotification = <span class="fstat-no" title="function not covered" >(req, res) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const { volunteer, event } = req.body;</span>
-<span class="cstat-no" title="statement not covered" >    return res.status(200).json({ message: 'Update notification sent' });</span>
-<span class="cstat-no" title="statement not covered" >};</span>
+exports.sendUpdateNotification = (req, res) =&gt; {
+    const { volunteer, event } = req.body;
+    return res.status(200).json({ message: 'Update notification sent' });
+};
 &nbsp;
 exports.sendReminderNotification = <span class="fstat-no" title="function not covered" >(req, res) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    const { volunteer, event } = req.body;</span>
@@ -127,7 +127,7 @@ exports.sendReminderNotification = <span class="fstat-no" title="function not co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-19T01:23:11.379Z
+                at 2024-10-28T06:38:04.181Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
