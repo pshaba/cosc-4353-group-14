@@ -32,3 +32,19 @@ CREATE TABLE UserProfile (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Record creation timestamp
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Record update timestamp
 );
+
+--------------------------------------------
+--         Table 'EventDetails'
+--------------------------------------------
+
+CREATE TABLE EventDetails (
+    id INT AUTO_INCREMENT PRIMARY KEY,       -- Unique identifier for each event
+    event_name VARCHAR(255) NOT NULL,        -- Name of the event
+    description TEXT,                        -- Description of the event
+    location VARCHAR(255),                   -- Location of the event
+    required_skills TEXT,                    -- Required skills (as a comma-separated list or JSON)
+    urgency VARCHAR(50),                     -- Urgency level (e.g., 'High', 'Medium', 'Low')
+    event_date DATE,                         -- Date of the event
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Record creation timestamp
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Record update timestamp
+);
