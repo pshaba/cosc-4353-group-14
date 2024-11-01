@@ -30,8 +30,7 @@ CREATE TABLE UserProfile (
     preferences TEXT,                        -- User preferences (as a comma-separated list or JSON)
     availability JSON,                       -- Availability (can store days and hours in JSON format)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Record creation timestamp
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Record update timestamp
-);
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP );
 --------------------------------------------
 --         Table 'VolunteerParticipation'
 --------------------------------------------
