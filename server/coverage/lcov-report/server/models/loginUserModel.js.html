@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/32</span>
+                <span class='fraction'>32/32</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">85.71% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>5/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/32</span>
+                <span class='fraction'>32/32</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -104,25 +104,25 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">// server/models/loginUserModel.js
@@ -132,28 +132,28 @@
 const users = []; 
 &nbsp;
 const User = {
-    findUser: (<span class="fstat-no" title="function not covered" >email) =&gt; users.find(user =&gt; user.email === email), </span>
+    findUser: (email) =&gt; users.find(user =&gt; user.email === email), 
     
-    addUser: (<span class="fstat-no" title="function not covered" >user) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        user.profileComplete = false; //set default value of profile complete to false</span>
-<span class="cstat-no" title="statement not covered" >        users.push(user); </span>
+    addUser: (user) =&gt; {
+        user.profileComplete = false; //set default value of profile complete to false
+        users.push(user); 
     }, 
 &nbsp;
-    isProfileComplete: (<span class="fstat-no" title="function not covered" >email) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        const user = User.findUser(email); </span>
-<span class="cstat-no" title="statement not covered" >        return user ? user.profileComplete : false; </span>
+    isProfileComplete: (email) =&gt; {
+        const user = User.findUser(email); 
+        return user ? user.profileComplete<span class="branch-0 cbranch-no" title="branch not covered" > : false; </span>
     }, 
 &nbsp;
-    setProfileComplete: (<span class="fstat-no" title="function not covered" >email) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        const user = User.findUser(email); </span>
-<span class="cstat-no" title="statement not covered" >        if (user) {</span>
-<span class="cstat-no" title="statement not covered" >            user.profileComplete = true; </span>
-<span class="cstat-no" title="statement not covered" >        }</span>
+    setProfileComplete: (email) =&gt; {
+        const user = User.findUser(email); 
+        if (user) {
+            user.profileComplete = true; 
+        }
     }, 
 &nbsp;
-    __resetUsers: <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        users.length = 0; // Clear users for testing</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    __resetUsers: () =&gt; {
+        users.length = 0; // Clear users for testing
+    }
 }; 
 &nbsp;
 module.exports = User; </pre></td></tr></table></pre>
@@ -163,7 +163,7 @@ module.exports = User; </pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-19T01:23:11.379Z
+                at 2024-10-30T17:46:26.708Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

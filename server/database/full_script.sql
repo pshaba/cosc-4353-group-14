@@ -32,3 +32,20 @@ CREATE TABLE UserProfile (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Record creation timestamp
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Record update timestamp
 );
+
+--------------------------------------------
+--         Table 'VolunteerParticipation'
+--------------------------------------------
+
+CREATE TABLE VolunteerParticipation (
+    participation_id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique identifier for each participation record
+    user_id INT NOT NULL,                                   -- User ID (foreign key to UserProfile table)
+    event_id INT NOT NULL,                                  -- Event ID (foreign key to EventDetails table)
+    participation_date DATE NOT NULL,                       -- Date of the volunteer's participation
+    hours_volunteered DECIMAL(5, 2) NOT NULL,               -- Number of hours volunteered
+    role VARCHAR(255) NOT NULL,                             -- Role or task assigned during the event
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,         -- Record creation timestamp
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Record update timestamp
+    FOREIGN KEY (user_id) REFERENCES UserProfile(user_id) ON DELETE CASCADE,   -- Foreign key with delete cascade
+    FOREIGN KEY (event_id) REFERENCES EventDetails(event_id) ON DELETE CASCADE -- Foreign key with delete cascade
+);
