@@ -32,6 +32,7 @@ CREATE TABLE UserProfile (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Record creation timestamp
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- Record update timestamp
 );
+
 --------------------------------------------
 --         Table 'VolunteerParticipation'
 --------------------------------------------
