@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.11% </span>
+                <span class="strong">19.38% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/90</span>
+                <span class='fraction'>19/98</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.11% </span>
+                <span class="strong">19.38% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/90</span>
+                <span class='fraction'>19/98</span>
             </div>
         
             
@@ -152,7 +152,15 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -193,9 +201,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -260,76 +276,84 @@ const isValidEmail = (<span class="fstat-no" title="function not covered" >email
 &nbsp;
 //register a new user
 exports.register = <span class="fstat-no" title="function not covered" >async (req, res) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const {email, password} = req.body; </span>
+<span class="cstat-no" title="statement not covered" >    try{</span>
+<span class="cstat-no" title="statement not covered" >        const {email, password} = req.body; </span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //validate email format </span>
-<span class="cstat-no" title="statement not covered" >    if(!isValidEmail(email)) {</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(400).json({message: "Invalid email format. Try again."}); </span>
+<span class="cstat-no" title="statement not covered" >        //validate email format </span>
+<span class="cstat-no" title="statement not covered" >        if(!isValidEmail(email)) {</span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({message: "Invalid email format. Try again."}); </span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        //check if user already exists </span>
+<span class="cstat-no" title="statement not covered" >        const existingUser = await User.findUser(email); </span>
+<span class="cstat-no" title="statement not covered" >        if (existingUser) {</span>
+<span class="cstat-no" title="statement not covered" >            console.log("User already exists:", email); </span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({message: "User already exists" }); </span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        //hash the pasword</span>
+<span class="cstat-no" title="statement not covered" >        const hashedPassword = await bcrypt.hash(password, 10); </span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        //add user to the in-memory storage</span>
+<span class="cstat-no" title="statement not covered" >        await User.addUser({email, password: hashedPassword}); </span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        res.status(201).json({message: 'User registered successfully'}); </span>
+<span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >        console.error("Error during registration: ", error); </span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).json({message: "An error occurred during registration."});</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //check if user already exists </span>
-<span class="cstat-no" title="statement not covered" >    const existingUser = User.findUser(email); </span>
-<span class="cstat-no" title="statement not covered" >    if (existingUser) {</span>
-<span class="cstat-no" title="statement not covered" >        console.log("User already exists:", email); </span>
-<span class="cstat-no" title="statement not covered" >        return res.status(400).json({message: "User already exists" }); </span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //hash the pasword</span>
-<span class="cstat-no" title="statement not covered" >    const hashedPassword = await bcrypt.hash(password, 10); </span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //add user to the in-memory storage</span>
-<span class="cstat-no" title="statement not covered" >    User.addUser({email, password: hashedPassword}); </span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    res.status(201).json({message: 'User registered successfully'}); </span>
 <span class="cstat-no" title="statement not covered" >}; </span>
 &nbsp;
 //login an existing user 
 exports.login = <span class="fstat-no" title="function not covered" >async (req, res) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    const {email, password} = req.body; </span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //log login attempt for debugging</span>
-<span class="cstat-no" title="statement not covered" >    console.log('Login attempt:', {email, password}); </span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //validate email format</span>
-<span class="cstat-no" title="statement not covered" >    if(!isValidEmail(email)) {</span>
-<span class="cstat-no" title="statement not covered" >        console.log('Invalid email format:', email); </span>
-<span class="cstat-no" title="statement not covered" >        return res.status(400).json({message:"Invalid email format. Try again."}); </span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //find user</span>
-<span class="cstat-no" title="statement not covered" >    const user = User.findUser(email); </span>
-<span class="cstat-no" title="statement not covered" >    //check if user exists</span>
-<span class="cstat-no" title="statement not covered" >    if (!user) {</span>
-<span class="cstat-no" title="statement not covered" >        console.log('Email not found:', email); </span>
-<span class="cstat-no" title="statement not covered" >        return res.status(401).json({message: "Email not found."}); </span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //compare the provided password with the stored password</span>
-<span class="cstat-no" title="statement not covered" >    const isPasswordMatch = await bcrypt.compare(password, user.password); </span>
-<span class="cstat-no" title="statement not covered" >    if (!isPasswordMatch) {</span>
-<span class="cstat-no" title="statement not covered" >        console.log('Password does not match'); </span>
-<span class="cstat-no" title="statement not covered" >        return res.status(401).json({message: "Password not correct."}); </span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    //generate a JWT token </span>
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >        console.log("Using SECRET_KEY: ", process.env.SECRET_KEY);</span>
-<span class="cstat-no" title="statement not covered" >        const token = jwt.sign({ email: user.email }, process.env.SECRET_KEY, { expiresIn: '1h' });</span>
-<span class="cstat-no" title="statement not covered" >        </span>
-<span class="cstat-no" title="statement not covered" >        //check if user profile is complete to know whether to redirect to Profile or Home page</span>
-<span class="cstat-no" title="statement not covered" >        const profileComplete = User.isProfileComplete(email); </span>
+<span class="cstat-no" title="statement not covered" >        //log login attempt for debugging</span>
+<span class="cstat-no" title="statement not covered" >        console.log('Login attempt:', {email, password}); </span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        //respond with token</span>
-<span class="cstat-no" title="statement not covered" >        res.json({token, profileComplete}); </span>
+<span class="cstat-no" title="statement not covered" >        //validate email format</span>
+<span class="cstat-no" title="statement not covered" >        if(!isValidEmail(email)) {</span>
+<span class="cstat-no" title="statement not covered" >            console.log('Invalid email format:', email); </span>
+<span class="cstat-no" title="statement not covered" >            return res.status(400).json({message:"Invalid email format. Try again."}); </span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        //find user</span>
+<span class="cstat-no" title="statement not covered" >        const existingUser = await User.findUser(email); </span>
+<span class="cstat-no" title="statement not covered" >        //console.log(existingUser); </span>
+<span class="cstat-no" title="statement not covered" >        //check if user exists</span>
+<span class="cstat-no" title="statement not covered" >        if (!existingUser) {</span>
+<span class="cstat-no" title="statement not covered" >            console.log('Email not found:', email); </span>
+<span class="cstat-no" title="statement not covered" >            return res.status(401).json({message: "Email not found."}); </span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        //compare the provided password with the stored password</span>
+<span class="cstat-no" title="statement not covered" >        //const isPasswordMatch = await bcrypt.compare(password, user.password); </span>
+<span class="cstat-no" title="statement not covered" >        //console.log("This is the stored password: ", existingUser.password); </span>
+<span class="cstat-no" title="statement not covered" >        const isPasswordMatch = await bcrypt.compare(password, existingUser.password); </span>
+<span class="cstat-no" title="statement not covered" >        if (!isPasswordMatch) {</span>
+<span class="cstat-no" title="statement not covered" >            console.log('Password does not match'); </span>
+<span class="cstat-no" title="statement not covered" >            return res.status(401).json({message: "Password not correct."}); </span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        //generate a JWT token </span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >            //console.log("Using SECRET_KEY: ", process.env.SECRET_KEY);</span>
+<span class="cstat-no" title="statement not covered" >            const token = jwt.sign({ email: existingUser.email }, process.env.SECRET_KEY, { expiresIn: '1h' });</span>
+<span class="cstat-no" title="statement not covered" >            </span>
+<span class="cstat-no" title="statement not covered" >            //check if user profile is complete to know whether to redirect to Profile or Home page</span>
+<span class="cstat-no" title="statement not covered" >            const profileComplete = existingUser.profileComplete; //User.isProfileComplete(email); </span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >            //respond with token</span>
+<span class="cstat-no" title="statement not covered" >            res.json({token, profileComplete}); </span>
+<span class="cstat-no" title="statement not covered" >        } catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >            console.error('Error signing JWT:', error);</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >        console.error('Error signing JWT:', error);</span>
+<span class="cstat-no" title="statement not covered" >        console.error('Error during login:', error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(500).json({ message: 'Internal server error.' });</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    </span>
-<span class="cstat-no" title="statement not covered" >    // //check if user profile is complete to know whether to redirect to Profile or Home page</span>
-<span class="cstat-no" title="statement not covered" >    // const profileComplete = User.isProfileComplete(email); </span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    // //respond with token</span>
-<span class="cstat-no" title="statement not covered" >    // res.json({token, profileComplete}); </span>
 <span class="cstat-no" title="statement not covered" >}; </span></pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -337,7 +361,7 @@ exports.login = <span class="fstat-no" title="function not covered" >async (req,
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-19T01:23:11.379Z
+                at 2024-11-02T01:20:56.809Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
