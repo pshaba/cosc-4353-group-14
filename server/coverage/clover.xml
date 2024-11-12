@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1730310386874" clover="3.2.0">
-  <project timestamp="1730310386874" name="All files">
+<coverage generated="1730511011620" clover="3.2.0">
+  <project timestamp="1730511011620" name="All files">
     <metrics statements="442" coveredstatements="420" conditionals="67" coveredconditionals="59" methods="22" coveredmethods="21" elements="531" coveredelements="500" complexity="0" loc="442" ncloc="442" packages="4" files="13" classes="13"/>
     <package name="server">
       <metrics statements="52" coveredstatements="47" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="database.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\database.js">
+      <file name="database.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\database.js">
         <metrics statements="28" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -35,7 +35,7 @@
         <line num="27" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
       </file>
-      <file name="server.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\server.js">
+      <file name="server.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\server.js">
         <metrics statements="24" coveredstatements="19" conditionals="1" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -65,7 +65,7 @@
     </package>
     <package name="server.controllers">
       <metrics statements="298" coveredstatements="281" conditionals="59" coveredconditionals="53" methods="17" coveredmethods="16"/>
-      <file name="NotificationController.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\controllers\NotificationController.js">
+      <file name="NotificationController.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\controllers\NotificationController.js">
         <metrics statements="19" coveredstatements="16" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -87,7 +87,7 @@
         <line num="18" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
       </file>
-      <file name="VolunteerMatchingController.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\controllers\VolunteerMatchingController.js">
+      <file name="VolunteerMatchingController.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\controllers\VolunteerMatchingController.js">
         <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -99,7 +99,7 @@
         <line num="8" count="2" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
       </file>
-      <file name="VolunteerParticipationController.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\controllers\VolunteerParticipationController.js">
+      <file name="VolunteerParticipationController.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\controllers\VolunteerParticipationController.js">
         <metrics statements="71" coveredstatements="67" conditionals="14" coveredconditionals="12" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -173,7 +173,7 @@
         <line num="70" count="1" type="stmt"/>
         <line num="71" count="2" type="stmt"/>
       </file>
-      <file name="loginController.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\controllers\loginController.js">
+      <file name="loginController.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\controllers\loginController.js">
         <metrics statements="90" coveredstatements="83" conditionals="11" coveredconditionals="8" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -266,7 +266,7 @@
         <line num="89" count="4" type="stmt"/>
         <line num="90" count="4" type="stmt"/>
       </file>
-      <file name="profileController.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\controllers\profileController.js">
+      <file name="profileController.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\controllers\profileController.js">
         <metrics statements="109" coveredstatements="106" conditionals="26" coveredconditionals="25" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -381,7 +381,7 @@
     </package>
     <package name="server.models">
       <metrics statements="32" coveredstatements="32" conditionals="7" coveredconditionals="6" methods="5" coveredmethods="5"/>
-      <file name="loginUserModel.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\models\loginUserModel.js">
+      <file name="loginUserModel.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\models\loginUserModel.js">
         <metrics statements="32" coveredstatements="32" conditionals="7" coveredconditionals="6" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -419,7 +419,7 @@
     </package>
     <package name="server.routes">
       <metrics statements="60" coveredstatements="60" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="loginAuthRoutes.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\routes\loginAuthRoutes.js">
+      <file name="loginAuthRoutes.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\routes\loginAuthRoutes.js">
         <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -435,7 +435,7 @@
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
       </file>
-      <file name="notificationRoutes.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\routes\notificationRoutes.js">
+      <file name="notificationRoutes.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\routes\notificationRoutes.js">
         <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -454,7 +454,7 @@
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
       </file>
-      <file name="profile-router.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\routes\profile-router.js">
+      <file name="profile-router.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\routes\profile-router.js">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -466,7 +466,7 @@
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
       </file>
-      <file name="volunteerMatchingRoutes.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\routes\volunteerMatchingRoutes.js">
+      <file name="volunteerMatchingRoutes.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\routes\volunteerMatchingRoutes.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -480,7 +480,7 @@
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
       </file>
-      <file name="volunteerParticipationRoutes.js" path="C:\Users\forev\OneDrive\Documents\GitHub\cosc-4353-group-14\server\routes\volunteerParticipationRoutes.js">
+      <file name="volunteerParticipationRoutes.js" path="C:\Users\peter\Dropbox\PC\Documents\GitHub\COSC-4353-Group-14\server\routes\volunteerParticipationRoutes.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
