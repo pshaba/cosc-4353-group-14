@@ -5,7 +5,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "lorem-ipsum": "^2.0.8",
-    "mysql2": "^3.11.3"
+    "mysql2": "^3.11.3",
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "jest": "^29.7.0",

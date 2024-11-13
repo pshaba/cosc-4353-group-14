@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 
-// Displays a table of all events including their participation status
-function VolunteerHistory({ events = [] }) { // default to an empty array
+Modal.setAppElement('#root'); // Make sure to set the root for accessibility when using react-modal
 
-    // Function to handle report download
-    const downloadReport = (format) => {
-        const url = `/volunteerHistory/report?format=${format}`;
+function VolunteerHistory({ events = [] }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [reportType, setReportType] = useState(""); // Track which report is requested (Event or Volunteer)
+    const [format, setFormat] = useState("csv"); // Default format to CSV
+
+    // Function to open the modal and set the report type
+    const openModal = (type) => {
+        setReportType(type);
+        setIsModalOpen(true);
+    };
+
+    // Function to handle report download based on format
+    const downloadReport = () => {
+        const url = `/volunteerHistory/report?type=${reportType.toLowerCase()}&format=${format}`;
         
-        // Fetch the report from the server
         fetch(url)
             .then(response => {
                 if (!response.ok) {
@@ -16,18 +26,20 @@ function VolunteerHistory({ events = [] }) { // default to an empty array
                 return response.blob(); // Convert response to a blob
             })
             .then(blob => {
-                // Create a link element, set it to the blob URL, and trigger a download
                 const downloadUrl = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = downloadUrl;
-                a.download = `volunteer_report.${format}`; // Set filename based on format
+                a.download = `${reportType.toLowerCase()}_report.${format}`; // Set filename based on format and type
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
             })
             .catch(error => {
                 console.error("Error downloading report:", error);
-                alert("No volunteer history records found or an error occurred.");
+                alert("No records found or an error occurred.");
+            })
+            .finally(() => {
+                setIsModalOpen(false); // Close the modal after download
             });
     };
 
@@ -35,16 +47,17 @@ function VolunteerHistory({ events = [] }) { // default to an empty array
         <div className="container mt-5">
             <h1 className="mb-4">Volunteer Event History</h1>
 
-            {/* Download buttons for CSV and PDF */}
+            {/* Buttons to open the modal for Event or Volunteer report download */}
             <div className="mb-3">
-                <button onClick={() => downloadReport('csv')} className="btn btn-primary mr-2">
-                    Download CSV Report
+                <button onClick={() => openModal('Event')} className="btn btn-primary mr-2">
+                    Download Event Report
                 </button>
-                <button onClick={() => downloadReport('pdf')} className="btn btn-secondary">
-                    Download PDF Report
+                <button onClick={() => openModal('Volunteer')} className="btn btn-secondary">
+                    Download Volunteer Report
                 </button>
             </div>
 
+            {/* Table displaying volunteer history */}
             <table className="table table-striped">
                 <thead id="table_head" className="thead-light">
                     <tr>
@@ -58,7 +71,6 @@ function VolunteerHistory({ events = [] }) { // default to an empty array
                     </tr>
                 </thead>
                 <tbody>
-                    {/* Maps over the events array to create a table row for each event */}
                     {events.length === 0 ? (
                         <tr>
                             <td colSpan="7" className="text-center">No events found.</td>
@@ -72,12 +84,47 @@ function VolunteerHistory({ events = [] }) { // default to an empty array
                                 <td>{event.requiredSkills.join(', ')}</td>
                                 <td>{event.urgency}</td>
                                 <td>{event.eventDate}</td>
-                                <td>Attended</td>  {/* Placeholder value for demo purposes */}
+                                <td>Attended</td>  {/* Placeholder value */}
                             </tr>
                         ))
                     )}
                 </tbody>
             </table>
+
+            {/* Modal for selecting format */}
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={() => setIsModalOpen(false)}
+                contentLabel="Select Report Format"
+                className="modal-content"
+                overlayClassName="modal-overlay"
+            >
+                <h2>Select Format for {reportType} Report</h2>
+                <div>
+                    <label>
+                        <input
+                            type="radio"
+                            value="csv"
+                            checked={format === 'csv'}
+                            onChange={() => setFormat('csv')}
+                        />
+                        CSV
+                    </label>
+                    <label style={{ marginLeft: '20px' }}>
+                        <input
+                            type="radio"
+                            value="pdf"
+                            checked={format === 'pdf'}
+                            onChange={() => setFormat('pdf')}
+                        />
+                        PDF
+                    </label>
+                </div>
+                <div className="modal-actions" style={{ marginTop: '20px' }}>
+                    <button onClick={downloadReport} className="btn btn-primary">Download</button>
+                    <button onClick={() => setIsModalOpen(false)} className="btn btn-secondary">Cancel</button>
+                </div>
+            </Modal>
         </div>
     );
 }
