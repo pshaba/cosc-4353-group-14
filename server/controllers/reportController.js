@@ -1,7 +1,7 @@
 const db = require('../database');  // import database query module
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;  // Import csv-writer
 const PDFDocument = require('pdfkit');  // import PDFKit for generating PDFs
-const fs = require('fs'); //file system module to save files locally 
+const fs = require('fs'); //file system module to save files locally with PDFs
 
 // Generate volunteer participation history report (CSV)
 async function generateVolunteerReportCSV(req, res) {
@@ -92,7 +92,7 @@ async function generateVolunteerReportPDF(req, res) {
         const results = await db.query(query, [startDate, endDate]);
 
         //create a new PDF document using PDFKit
-        const pdf = new PDFDocument();
+        const doc = new PDFDocument();
         const filePath = './reports/volunteer_participation_report.pdf'; //path where the PDF will be saved
         doc.pipe(fs.createWriteStream(filePath)); //Pipe the document to a file
 
