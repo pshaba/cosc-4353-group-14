@@ -4,6 +4,8 @@ import './VolunteerHistory.css';
 function VolunteerHistory({ events = [] }) {
     const [showModal, setShowModal] = useState(false);
     const [reportFormat, setReportFormat] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
     // Function to open the modal
     const openModal = () => setShowModal(true);
@@ -12,6 +14,8 @@ function VolunteerHistory({ events = [] }) {
     const closeModal = () => {
         setShowModal(false);
         setReportFormat('');
+        setStartDate('');
+        setEndDate('');
     };
 
     // Function to handle format selection and download
@@ -21,8 +25,30 @@ function VolunteerHistory({ events = [] }) {
             return;
         }
 
-        const url = `/volunteerHistory/report?format=${reportFormat.toLowerCase()}`;
-        fetch(url)
+        if (!startDate || !endDate) {
+            alert("Please select a start and end date for the report.");
+            return;
+        }
+
+        // Determine which endpoint to call based on the format
+        let endpoint = '';
+        if (reportFormat === 'CSV') {
+            endpoint = `/api/reports/generate-volunteer-csv`;
+        } else if (reportFormat === 'PDF') {
+            endpoint = `/api/reports/generate-volunteer-pdf`;
+        }
+
+        // Fetch request to initiate download
+        fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                startDate: startDate,
+                endDate: endDate,
+            }),
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Error downloading the report.");
@@ -92,9 +118,26 @@ function VolunteerHistory({ events = [] }) {
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <button className="close-btn" onClick={closeModal}>&times;</button>
-                        <h4>Select Report Format</h4>
+                        <h4>Select Report Format and Date Range</h4>
                         <p>Select the format for downloading the volunteer report:</p>
                         
+                        {/* Date Selection */}
+                        <label>Start Date:</label>
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="format-select"
+                        />
+                        
+                        <label>End Date:</label>
+                        <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="format-select"
+                        />
+
                         {/* Format Selection as Dropdown */}
                         <select
                             value={reportFormat}
