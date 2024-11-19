@@ -3,7 +3,7 @@
 // It's also a separate file because it's a separate concern from the routes
 
 // This is a file that will be imported into the server file
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 const dotenv = require ("dotenv");
 dotenv.config({ path: "./.env" });
 
