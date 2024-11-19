@@ -90,8 +90,15 @@ const validStates = [
     ]
 
     db.query(query, [values], (err, data) => { //send the data to the DB
-       res.json(data);
+      // if (err) {
+      //   console.error("Error saving profile:", err.message); // Log the error
+      //   return res.status(500).json({ error: "Failed to save profile to the database." });
+      // }
+      // console.log("Profile saved successfully:", data);
+      // res.status(201).json({ message: "Profile saved successfully", data });
     });
+    console.log("Profile saved successfully");
+    res.status(201).json({ message: "Profile saved successfully" });
   } catch (err) {
     console.error('Error saving profile:', err);
     res.status(500).json({ error: 'An error occurred while saving the profile.' });
