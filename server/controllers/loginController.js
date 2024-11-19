@@ -85,8 +85,10 @@ exports.login = async (req, res) => {
             //check if user profile is complete to know whether to redirect to Profile or Home page
             const profileComplete = existingUser.profileComplete; //User.isProfileComplete(email); 
 
+            const user_id = existingUser.id; //pass id so it be passes to profile as well.
+           // console.log("this is the user ID: ", user_id);
             //respond with token
-            res.json({token, profileComplete}); 
+            res.json({token, profileComplete, user_id}); 
         } catch (error) {
             console.error('Error signing JWT:', error);
         }
