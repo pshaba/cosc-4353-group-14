@@ -46,13 +46,13 @@ const User = {
         //return user.profileComplete ? user : 0;
     }, 
 
-    setProfileComplete: async (email) => { //made async when database implemented
+    setProfileComplete: async (user_id) => { //made async when database implemented
         /*const user = User.findUser(email); 
         if (user) {
             user.profileComplete = true; 
         }*/
 
-        await db.query('UPDATE usersCredentials SET profileComplete = ? WHERE email = ?', [1, email]); 
+        await db.query('UPDATE userCredentials SET profileComplete = ? WHERE id = ?', [1, user_id]); 
     }, 
 
     __resetUsers: async () => { //made async when database implemented

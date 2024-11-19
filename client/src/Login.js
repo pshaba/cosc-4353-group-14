@@ -33,10 +33,13 @@ const Login = () => {
             //if response is successful, precess the data
             const data = await response.json(); 
             localStorage.setItem('token', data.token); 
-            navigate(data.profileComplete ? '/home': '/profile'); //redirect based on profile completion
+            const some_id = data.user_id;
+            //navigate(data.profileComplete ? '/home': '/profile'); //redirect based on profile completion
+            navigate(data.profileComplete ? '/home' : `/profile?user_id=${data.user_id}`); //redirect based on profile completion
 
             //logic to handle login
             //output to console the submitted email and password
+            console.log("data.id contains: ", {some_id});
             console.log("Login form submitted!"); 
             console.log("Email:", {email}); 
         } catch(error) {

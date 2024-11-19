@@ -1,5 +1,5 @@
 const db = require("../database"); // Use require instead of import
-
+const User = require('../models/loginUserModel'); 
 // List of valid US state codes
 const validStates = [
     'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA',
@@ -70,14 +70,16 @@ const validStates = [
     console.log('Profile Data Received:', req.body);
 
     const query = `
-      INSERT INTO UserProfile (full_name, address,address2, city, state, zipcode, skills, preferences, availability)
+      INSERT INTO UserProfile (user_id, full_name, address,address2, city, state, zipcode, skills, preferences, availability)
       VALUES (?)
     `;
     
     const availability_ = JSON.stringify(req.body.availability);  // Convert array to JSON string
     const skills_ = JSON.stringify(req.body.skills);  // Convert array to JSON string
+    //console.log("checking if we have the ID correct:",req.body.userID );
 
     const values = [
+      req.body.user_id,
       req.body.fullName,
       req.body.address1,
       req.body.address2,
@@ -98,6 +100,7 @@ const validStates = [
       // res.status(201).json({ message: "Profile saved successfully", data });
     });
     console.log("Profile saved successfully");
+    User.setProfileComplete(req.body.user_id);//set profile complete
     res.status(201).json({ message: "Profile saved successfully" });
   } catch (err) {
     console.error('Error saving profile:', err);

@@ -1,6 +1,6 @@
 // src/components/Profile.js
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom'; //for redirection to Home page
+import {useNavigate, useLocation} from 'react-router-dom'; //for redirection to Home page
 import axios from 'axios';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
@@ -10,6 +10,12 @@ import 'bootstrap/dist/css/bootstrap.min.css'; //bootstrap CSS
 
 
 const Profile = () => {
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const user_id = params.get('user_id');
+
+  console.log('User ID in profile:', user_id); // Use this value on the profile page
+
   const [msg, setMsg] = useState('');
   const [fullName, setFullName] = useState('');
   const [address1, setAddress1] = useState('');
@@ -106,7 +112,8 @@ const axiosPostData = async(navigate) => { // Pass navigate as an argument
       zipCode: zipCode,
       skills: skills,
       preferences: preferences,
-      availability: availability
+      availability: availability,
+      user_id: user_id
     }
     // await axios.post('http://localhost:5000/profile', postData)
     // .then(res => setMsg(<p className="success">{res.data}</p>))
