@@ -12,14 +12,18 @@ CREATE TABLE userCredentials (
     profileComplete BOOLEAN DEFAULT FALSE, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-); 
+);
+
+-- Set AUTO_INCREMENT starting value
+ALTER TABLE userCredentials AUTO_INCREMENT = 3001;
 
 --------------------------------------------
 --         Table 'UserProfile'
 --------------------------------------------
 
 CREATE TABLE UserProfile (
-    user_id INT PRIMARY KEY AUTO_INCREMENT,  -- Unique identifier for each user
+    id INT PRIMARY KEY AUTO_INCREMENT,       -- Unique identifier for each user
+    user_id INT NOT NULL,                    -- User ID (foreign key to UserProfile table)
     full_name VARCHAR(255) NOT NULL,         -- Full name of the user
     address VARCHAR(255),                    -- Street address of the user
 	address2 VARCHAR(255), 					 -- address 2
@@ -29,6 +33,7 @@ CREATE TABLE UserProfile (
     skills TEXT,                             -- Skills of the user (as a comma-separated list or JSON)
     preferences TEXT,                        -- User preferences (as a comma-separated list or JSON)
     availability JSON,                       -- Availability (can store days and hours in JSON format)
+    FOREIGN KEY (user_id) REFERENCES usercredentials(id) ON DELETE CASCADE,   -- Foreign key with delete cascade
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Record creation timestamp
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
   
