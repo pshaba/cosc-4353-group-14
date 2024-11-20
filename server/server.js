@@ -18,6 +18,7 @@ const homeRouter = require('./routes/home-router');
 const eventRoutes = require('./routes/events');
 const volunteerHistoryRoutes = require('./routes/volunteerHistory');
 const loginAuthRoutes = require('./routes/loginAuthRoutes'); 
+const reportRoutes = require('./routes/reportRoutes');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
@@ -53,6 +54,7 @@ app.use('/profile', profileRouter);
 app.use('/api/events', eventRoutes);
 app.use('/api/volunteer-history', volunteerHistoryRoutes);
 app.use('/api/auth', loginAuthRoutes); 
+app.use('/api/reports/',reportRoutes);
 
 app.listen(5001, () => {
     console.log("Server started on port 5001")
