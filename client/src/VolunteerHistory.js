@@ -1,14 +1,20 @@
+// src/VolunteerHistory.js
 import React, { useState } from 'react';
 import './VolunteerHistory.css';
 
 function VolunteerHistory({ events = [] }) {
     const [showModal, setShowModal] = useState(false);
-    const [reportFormat, setReportFormat] = useState('');
+    const [reportFormat, setReportFormat] = useState(''); //help track which format is wanted (CSV or PDF)
+    const [reportType, setReportType] = useState(''); //help track which report is wanted (volunteer or event)
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
     // Function to open the modal
-    const openModal = () => setShowModal(true);
+    //takes in reportType based on the selected button
+    const openModal = (type) => {
+        setReportType(type); //set report type based on the button clicked
+        setShowModal(true); 
+    }; 
 
     // Function to close the modal
     const closeModal = () => {
@@ -30,12 +36,18 @@ function VolunteerHistory({ events = [] }) {
             return;
         }
 
-        // Determine which endpoint to call based on the format
+        // Determine which endpoint to call based on the format AND report type
         let endpoint = '';
-        if (reportFormat === 'CSV') {
-            endpoint = `/api/reports/generate-volunteer-csv`;
-        } else if (reportFormat === 'PDF') {
-            endpoint = `/api/reports/generate-volunteer-pdf`;
+        //if volunteer report type is chosen
+        if (reportType === 'volunteer') {
+            //endpoint is = reportFormat = whatever chosen chooses which reportController function to call on 
+            endpoint = reportFormat === 'CSV'
+                ? `/api/reports/generate-volunteer-csv`
+                : `/api/reports/generate-volunteer-pdf`;
+        } else if (reportType === 'event') {
+            endpoint = reportFormat === 'CSV'
+                ? `/api/reports/generate-event-csv`
+                : `/api/reports/generate-event-pdf`;
         }
 
         // Fetch request to initiate download
@@ -59,7 +71,7 @@ function VolunteerHistory({ events = [] }) {
                 const downloadUrl = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = downloadUrl;
-                link.download = `volunteer_report.${reportFormat.toLowerCase()}`;
+                link.download = `${reportType}_report.${reportFormat.toLowerCase()}`; //fixed to have the correct title based on reportType and reportFormat
                 document.body.appendChild(link);
                 link.click();
                 link.remove();
@@ -76,8 +88,8 @@ function VolunteerHistory({ events = [] }) {
             <h1 className="mb-4">Volunteer Event History</h1>
 
             <div className="mb-3">
-                <button onClick={openModal} className="btn btn-success mr-2">Download Event Report</button>
-                <button onClick={openModal} className="btn btn-secondary">Download Volunteer Report</button>
+            <button onClick={() => openModal('event')} className="btn btn-success mr-2">Download Event Report</button>
+            <button onClick={() => openModal('volunteer')} className="btn btn-success">Download Volunteer Report</button>
             </div>
 
             <table className="table table-striped">
@@ -151,7 +163,6 @@ function VolunteerHistory({ events = [] }) {
 
                         <div className="modal-actions mt-3">
                             <button onClick={handleDownload} className="btn btn-success btn-small">Submit</button>
-                            <button onClick={closeModal} className="btn btn-danger btn-small">Cancel</button>
                         </div>
                     </div>
                 </div>
