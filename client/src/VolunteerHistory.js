@@ -1,12 +1,87 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './VolunteerHistory.css';
 
-// Displays a table of all events including their participation status
-function VolunteerHistory({ events=[] }) {//defualt to an empty array
+function VolunteerHistory({ events = [] }) {
+    const [showModal, setShowModal] = useState(false);
+    const [reportFormat, setReportFormat] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
+    // Function to open the modal
+    const openModal = () => setShowModal(true);
+
+    // Function to close the modal
+    const closeModal = () => {
+        setShowModal(false);
+        setReportFormat('');
+        setStartDate('');
+        setEndDate('');
+    };
+
+    // Function to handle format selection and download
+    const handleDownload = () => {
+        if (!reportFormat) {
+            alert("Please select a format to download the report.");
+            return;
+        }
+
+        if (!startDate || !endDate) {
+            alert("Please select a start and end date for the report.");
+            return;
+        }
+
+        // Determine which endpoint to call based on the format
+        let endpoint = '';
+        if (reportFormat === 'CSV') {
+            endpoint = `/api/reports/generate-volunteer-csv`;
+        } else if (reportFormat === 'PDF') {
+            endpoint = `/api/reports/generate-volunteer-pdf`;
+        }
+
+        // Fetch request to initiate download
+        fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                startDate: startDate,
+                endDate: endDate,
+            }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error downloading the report.");
+                }
+                return response.blob();
+            })
+            .then(blob => {
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = `volunteer_report.${reportFormat.toLowerCase()}`;
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                closeModal();
+            })
+            .catch(error => {
+                console.error("Error downloading report:", error);
+                alert("An error occurred while downloading the report.");
+            });
+    };
+
     return (
         <div className="container mt-5">
             <h1 className="mb-4">Volunteer Event History</h1>
+
+            <div className="mb-3">
+                <button onClick={openModal} className="btn btn-success mr-2">Download Event Report</button>
+                <button onClick={openModal} className="btn btn-secondary">Download Volunteer Report</button>
+            </div>
+
             <table className="table table-striped">
-                <thead id="table_head" className="thead-light">
+                <thead>
                     <tr>
                         <th>Event Name</th>
                         <th>Description</th>
@@ -14,19 +89,15 @@ function VolunteerHistory({ events=[] }) {//defualt to an empty array
                         <th>Required Skills</th>
                         <th>Urgency</th>
                         <th>Event Date</th>
-                        <th>Status</th>  {/* Placeholder for Participation Status */}
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {/* Maps over the events array to create a table row for each event */}
-                    {/*FOR DEBUGGING PURPOSES*/}
                     {events.length === 0 ? (
-                        <try>
-                            <td colspan="7" className="text-center">No events found.</td>
-    
-                        </try>
-                    ) : ( 
-                    
+                        <tr>
+                            <td colSpan="7" className="text-center">No events found.</td>
+                        </tr>
+                    ) : (
                         events.map((event, index) => (
                             <tr key={index}>
                                 <td>{event.eventName}</td>
@@ -35,12 +106,56 @@ function VolunteerHistory({ events=[] }) {//defualt to an empty array
                                 <td>{event.requiredSkills.join(', ')}</td>
                                 <td>{event.urgency}</td>
                                 <td>{event.eventDate}</td>
-                                <td>Attended</td>  {/* Placeholder value for demo purposes */}
+                                <td>Attended</td>
                             </tr>
                         ))
                     )}
                 </tbody>
             </table>
+
+            {/* Modal */}
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <button className="close-btn" onClick={closeModal}>&times;</button>
+                        <h4>Select Report Format and Date Range</h4>
+                        <p>Select the format for downloading the volunteer report:</p>
+                        
+                        {/* Date Selection */}
+                        <label>Start Date:</label>
+                        <input
+                            type="date"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="format-select"
+                        />
+                        
+                        <label>End Date:</label>
+                        <input
+                            type="date"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="format-select"
+                        />
+
+                        {/* Format Selection as Dropdown */}
+                        <select
+                            value={reportFormat}
+                            onChange={(e) => setReportFormat(e.target.value)}
+                            className="format-select"
+                        >
+                            <option value="" disabled>Select format</option>
+                            <option value="CSV">CSV</option>
+                            <option value="PDF">PDF</option>
+                        </select>
+
+                        <div className="modal-actions mt-3">
+                            <button onClick={handleDownload} className="btn btn-success btn-small">Submit</button>
+                            <button onClick={closeModal} className="btn btn-danger btn-small">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
