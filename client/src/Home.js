@@ -4,12 +4,17 @@ Contiains Login button to redirect to login/register page
 Once logged in, the Login page will redirect to this Home page
 */
 import React from 'react'; 
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import './Home.css'
 import {loremIpsum} from 'lorem-ipsum'; //used to generate text in home page body
 
 const Home = () => {
+    const navigate = useNavigate(); //redirect user to login page upon logout
 
+    const handleLogout = () => {
+        navigate('/login'); 
+    }; 
+    
     const paragraphs = loremIpsum({
         count: 2, //number of paragraphs 
         units:'paragraphs'
@@ -54,9 +59,9 @@ const Home = () => {
                                 <Link className="nav-link" to="/notifications"> Notifications </Link>
                             </li>
                         </ul>
-                        {/* Login button in navbar appears on the right side */}
+                        {/* Logout button in navbar appears on the right side */}
                         <div className="d-flex ms-auto">
-                            <Link className="btn btn-outline-success my-2 my-sm-0" to="/login"> Login </Link>
+                            <button className="btn btn-outline-danger my-2 my-sm-0" onClick={handleLogout}>Logout</button>
                         </div>
                     </div>
                 </div>
