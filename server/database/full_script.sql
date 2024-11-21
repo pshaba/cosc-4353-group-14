@@ -146,10 +146,10 @@ VALUES
 
 INSERT INTO VolunteerParticipation (user_id, event_id, participation_date, hours_volunteered, role)
 VALUES 
-(3001, 101, '2024-11-01', 4.5, 'Registration Coordinator'),
-(3002, 102, '2024-11-02', 3.0, 'Food Distribution Volunteer'),
-(3003, 103, '2024-11-03', 5.0, 'Event Setup Team'),
-(3004, 104, '2024-11-04', 2.0, 'Crowd Management'),
+-- (3001, 101, '2024-11-01', 4.5, 'Registration Coordinator'),
+-- (3002, 102, '2024-11-02', 3.0, 'Food Distribution Volunteer'),
+-- (3003, 103, '2024-11-03', 5.0, 'Event Setup Team'),
+-- (3004, 104, '2024-11-04', 2.0, 'Crowd Management'),
 (3005, 105, '2024-11-05', 6.0, 'Tech Support'),
 (3006, 106, '2024-11-06', 4.0, 'Workshop Coordinator'),
 (3007, 107, '2024-11-07', 7.5, 'Media Coverage'),

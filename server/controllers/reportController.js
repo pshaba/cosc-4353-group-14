@@ -12,7 +12,7 @@ async function generateVolunteerReportCSV(req, res) {
     try {
         //SQL query to fetch volunteer participation history within date range
         const query = `
-            SELECT 
+            SELECT DISTINCT
                 u.full_name AS volunteer_name,
                 e.event_name,
                 vp.participation_date,
@@ -68,7 +68,7 @@ async function generateVolunteerReportPDF(req, res) {
     try {
         // SQL query to fetch volunteer participation history within date range
         const query = `
-            SELECT 
+            SELECT DISTINCT
                 u.full_name AS volunteer_name,
                 e.event_name,
                 vp.participation_date,
@@ -89,12 +89,19 @@ async function generateVolunteerReportPDF(req, res) {
 
         // Fetch results from the database
         const results = await db.query(query, [startDate, endDate]);
+        //console.log("Volunteer PDF Query results: ", results); //log query database results 
 
-        // Flatten the results array (if it's an array of arrays)
+        //Flatten the results array (if it's an array of arrays)
         const flattenedResults = results.flat();
 
         // Log the results to ensure they are correctly formatted
-        console.log(flattenedResults);
+        //console.log("Flattened Volunteer PDF Query Results", flattenedResults);
+
+        if(flattenedResults.length === 0) {
+            console.log('No results found for the given data range'); 
+            res.status(404).send('No results found for the selected date range.'); 
+            return; 
+        }
 
         // Create a new PDF document using PDFKit
         const doc = new PDFDocument();
@@ -107,7 +114,7 @@ async function generateVolunteerReportPDF(req, res) {
         doc.moveDown(2);
 
         // Loop through the results and add each entry to the PDF
-        flattenedResults.forEach((entry, index) => {
+        flattenedResults.forEach((entry) => {
             // Check if entry is missing any key data
             if (entry.volunteer_name && entry.event_name) {
                 doc.text(`Volunteer: ${entry.volunteer_name}`);
@@ -123,17 +130,15 @@ async function generateVolunteerReportPDF(req, res) {
         });
 
         doc.end(); // Finalize the PDF
-
+        console.log("Volunteer PDF generation completed.\n"); 
+        
         // After PDF is generated, send it as a download to the client
-        doc.on('end', () => {
-            res.download(filePath); // Provide the PDF file as a download
-        });
+        res.download(filePath); 
     } catch (error) {
-        console.error(error);
+        console.error("Error generating PDF report", error);
         res.status(500).send('Error generating volunteer PDF report');
     }
 }
-
 
 // Generate event details report (CSV)
 async function generateEventReportCSV(req, res) {
@@ -142,7 +147,7 @@ async function generateEventReportCSV(req, res) {
     try {
         //SQL query to fetch event details along with volunteer participation
         const query = `
-            SELECT 
+            SELECT DISTINCT
                 e.event_name,
                 e.description,
                 e.location,
@@ -202,7 +207,7 @@ async function generateEventReportPDF(req, res) {
     try {
         //SQL query to fetch event details along with volunteer participation 
         const query = `
-            SELECT 
+            SELECT DISTINCT
                 e.event_name,
                 e.description,
                 e.location,
@@ -226,7 +231,20 @@ async function generateEventReportPDF(req, res) {
 
         //fetch results from the database
         const results = await db.query(query, [startDate, endDate]);
+        console.log("Event PDF Query Results: ", results); 
 
+        // Flatten the results array (if it's an array of arrays)
+        const flattenedResults = results.flat();
+
+        // Log the results to ensure they are correctly formatted
+        console.log("Flattened Event PDF Query Results", flattenedResults);
+
+        if(flattenedResults.length === 0) {
+            console.log('No results found for the given data range'); 
+            res.status(404).send('No results found for the selected date range.'); 
+            return; 
+        }
+        
         //create a new PDF document using PDFKit
         const doc = new PDFDocument();
         const filePath = './reports/event_report.pdf';//path wehere the PDF will be saved
@@ -238,25 +256,24 @@ async function generateEventReportPDF(req, res) {
         doc.moveDown(2);
 
         //loop through the results and add each enetry to the PDF
-        results.forEach((entry) => {
-            doc.text(`Event: ${entry.event_name}`);
-            doc.text(`Description: ${entry.description}`);
-            doc.text(`Location: ${entry.location}`);
+        flattenedResults.forEach((entry) => {
+            doc.text(`Event: ${entry.event_name || 'Unknown event.'}`);
+            doc.text(`Description: ${entry.description || 'No description available.'}`);
+            doc.text(`Location: ${entry.location || 'Location not provided'}`);
             doc.text(`Event Date: ${entry.event_date}`);
-            doc.text(`Urgency: ${entry.urgency}`);
-            doc.text(`Volunteer: ${entry.volunteer_name}`);
+            doc.text(`Urgency: ${entry.urgency || 'N/A'}`);
+            doc.text(`Volunteer: ${entry.volunteer_name || 'N/A'}`);
             doc.text(`Participation Date: ${entry.participation_date}`);
-            doc.text(`Hours Volunteered: ${entry.hours_volunteered}`);
-            doc.text(`Role: ${entry.role}`);
+            doc.text(`Hours Volunteered: ${entry.hours_volunteered || 'N/A'}`);
+            doc.text(`Role: ${entry.role || 'N/A'}`);
             doc.moveDown(1);
         });
 
         doc.end(); //finalize the PDF
+        console.log("Event PDF generation completed.\n"); 
 
-        //after PDF is generated, send it as a download to the cliet
-        doc.on('end', () => {
-            res.download(filePath); // Provide the PDF file as a download
-        });
+        // After PDF is generated, send it as a download to the client
+        res.download(filePath); 
     } catch (error) {
         console.error(error);
         res.status(500).send('Error generating event PDF report');
