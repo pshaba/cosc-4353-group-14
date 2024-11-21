@@ -108,9 +108,18 @@ const validStates = [
   }
   };
   
-  const getProfile = (req, res) => {
+  const getProfile = async (req, res) => {
     // return the profile data here from the database
-    res.status(200).json({ message: 'Profile GET request successful' });
+    const query = `SELECT id, full_name FROM UserProfile`;
+    try {
+      const [rows] = await db.query(query);
+      console.log({rows});
+      res.status(200).json({rows}); // Return the query results
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        throw error; // Let the caller handle the error
+    }
+    //res.status(200).json({ message: 'Profile GET request successful' });
   };
   
   module.exports = {

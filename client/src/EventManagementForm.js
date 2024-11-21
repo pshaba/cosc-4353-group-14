@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./EventManagmentForm.css" // Custom CSS
+import "./EventManagmentForm.css"; // Custom CSS
 
 function EventManagementForm() {
     const [formData, setFormData] = useState({
@@ -10,6 +10,8 @@ function EventManagementForm() {
         urgency: '',
         eventDate: ''
     });
+
+    const [responseMessage, setResponseMessage] = useState('');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -33,16 +35,37 @@ function EventManagementForm() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
-        // You might want to do some more form validation or sending data to server here
+
+        try {
+            const response = await fetch('/api/events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                setResponseMessage('Event successfully created!');
+                console.log(result); // Handle the success response
+            } else {
+                const error = await response.json();
+                setResponseMessage(`Error: ${error.message || 'Failed to create event.'}`);
+                console.error(error); // Handle the error response
+            }
+        } catch (error) {
+            setResponseMessage('An unexpected error occurred.');
+            console.error('Error:', error); // Handle unexpected errors
+        }
     };
 
     return (
         <form className="container mt-5" onSubmit={handleSubmit}>
             <h2 className="mb-4">Event Management</h2>
-            <div clasName="mb=3">
+            <div className="mb-3">
                 <label className="form-label" htmlFor="eventName">Event Name:</label>
                 <input
                     type="text"
@@ -123,6 +146,7 @@ function EventManagementForm() {
                 />
             </div>
             <button className="btn btn-primary" id="submit_btn" type="submit">Submit</button>
+            {responseMessage && <div className="mt-3 alert alert-info">{responseMessage}</div>}
         </form>
     );
 }
